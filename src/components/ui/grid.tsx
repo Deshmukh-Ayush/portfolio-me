@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -65,9 +66,12 @@ const GridItem = ({
       <Link
         href={href}
         target="_blank"
-        className="text-neutral-100 underline decoration-neutral-400 underline-offset-4"
+        className="flex text-neutral-100 underline decoration-neutral-400 underline-offset-4"
       >
-        {link}
+        {link}{" "}
+        <span className="ml-1">
+          <ArrowUpRight className="text-neutral-300" />
+        </span>
       </Link>
       <p className="text-md text-neutral-400">{p}</p>
     </div>

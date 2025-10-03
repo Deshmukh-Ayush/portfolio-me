@@ -16,6 +16,11 @@ export const Header = ({ className }: { className?: string }) => {
     <div className={cn("grid grid-cols-1 grid-rows-3", className)}>
       <div>
         <Heading className="text-3xl">Ayush Deshmukh</Heading>
+        <Para
+          className={`${newsReader.className} mt-2 text-lg dark:text-neutral-400`}
+        >
+          Design Engineer
+        </Para>
       </div>
       <div>
         <Para>

@@ -16,7 +16,9 @@ export const Chips = ({
       initial="initial"
       whileHover="animate"
       className={cn(
-        "text-md flex cursor-pointer items-center justify-center gap-2 rounded-4xl bg-neutral-600 px-4 py-1 text-neutral-100 transition-all duration-100 ease-in-out hover:bg-neutral-700",
+        "text-md flex cursor-pointer items-center justify-center gap-2 rounded-4xl bg-neutral-600 px-4 py-1 text-neutral-100 transition-all duration-100 ease-in-out hover:bg-neutral-700 dark:bg-neutral-900",
+        "border-t border-r dark:border-neutral-800",
+
         className,
       )}
     >
