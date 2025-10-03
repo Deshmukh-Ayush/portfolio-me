@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Instrument_Serif } from "next/font/google";
+import { Open_Sans } from "next/font/google";
 import "./globals.css";
 
-const instrument_serif = Instrument_Serif({
+const openSans = Open_Sans({
   weight: ["400"],
   subsets: ["latin"],
 });
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="en">
       <body
-        className={`${instrument_serif.className} antialiased`}
+        className={`${openSans.className} antialiased`}
       >
         {children}
       </body>
