@@ -10,11 +10,11 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen w-full dark:bg-neutral-950">
+    <div className="relative min-h-screen w-full bg-neutral-100 dark:bg-neutral-950">
       <Clock className="fixed top-4 right-4" />
       <MusicToggleButton className="fixed right-4 bottom-2" />
-      <ThemeToggle className="fixed right-24 bottom-2" />
-      <Container>
+      <ThemeToggle className="fixed right-18 bottom-2" />
+      <Container className="bg-neutral-100 dark:bg-neutral-950">
         <Header />
         <Grid />
         <Now />

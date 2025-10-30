@@ -61,12 +61,12 @@ export const MusicToggleButton = ({ className }: { className: string }) => {
       <motion.div
         onClick={handleClick}
         key="audio"
-        initial={{ padding: "14px 14px " }}
-        whileHover={{ padding: "18px 22px " }}
+        initial={{ padding: "10px 10px " }}
+        whileHover={{ padding: "12px 12px " }}
         whileTap={{ padding: "18px 22px " }}
         transition={{ duration: 1, bounce: 0.6, type: "spring" }}
         className={cn(
-          "cursor-pointer rounded-full border border-neutral-800 p-2 dark:bg-neutral-950",
+          "cursor-pointer rounded-full border border-neutral-800 dark:bg-neutral-950",
           className,
         )}
       >

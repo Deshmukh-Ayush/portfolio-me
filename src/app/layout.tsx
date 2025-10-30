@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import ScreenGate from "@/components/screen-gate";
 
 const openSans = Open_Sans({
   weight: ["400"],
@@ -21,14 +22,16 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="en">
       <body className={`${openSans.className} antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <main>{children}</main>
-        </ThemeProvider>
+        <ScreenGate>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </ScreenGate>
       </body>
     </html>
   );

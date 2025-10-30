@@ -9,7 +9,10 @@ export const Connect = () => {
       <Para className="mt-8 dark:text-neutral-400">
         Reach me at{" "}
         <span className="flex gap-4">
-          <Underline href="https://x.com/everywhereayush">
+          <Underline
+            href="https://x.com/everywhereayush"
+            className="dark:text-neutral-100"
+          >
             @everywhereayush
           </Underline>
           <Underline
