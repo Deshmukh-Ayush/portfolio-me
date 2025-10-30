@@ -13,7 +13,7 @@ export default function Home() {
     <div className="relative min-h-screen w-full bg-neutral-100 dark:bg-neutral-950">
       <Clock className="fixed top-4 right-4" />
       <MusicToggleButton className="fixed right-4 bottom-2" />
-      <ThemeToggle className="fixed right-18 bottom-2" />
+      <ThemeToggle className="fixed right-18 bottom-2 cursor-pointer" />
       <Container className="bg-neutral-100 dark:bg-neutral-950">
         <Header />
         <Grid />

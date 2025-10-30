@@ -84,7 +84,7 @@ export const MusicToggleButton = ({ className }: { className: string }) => {
           {heights.map((height, index) => (
             <motion.div
               key={index}
-              className="w-[1px] rounded-full dark:bg-neutral-100"
+              className="w-[1px] rounded-full bg-neutral-900 dark:bg-neutral-100"
               initial={{ height: 1 }}
               animate={{
                 height: Math.max(4, height * 14),

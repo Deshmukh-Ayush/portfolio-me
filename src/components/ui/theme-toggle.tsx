@@ -5,10 +5,6 @@ import { motion, AnimatePresence } from "motion/react";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
-/**
- * Rectangle bottom-up + blur view-transition CSS (forced)
- * (Copied/derived from your original animation for variant === "rectangle" + blur === true + start === "bottom-up")
- */
 const RECTANGLE_BOTTOM_UP_BLUR_CSS = `
 ::view-transition-group(root) {
   animation-duration: 0.9s;
@@ -55,12 +51,6 @@ const RECTANGLE_BOTTOM_UP_BLUR_CSS = `
 }
 `;
 
-/**
- * Hook: useRectangleBottomUpBlurToggle
- * - Injects the rectangle bottom-up blur CSS into the document (style tag)
- * - Uses the View Transitions API when available
- * - Falls back to normal theme switch when not available
- */
 const STYLE_ID = "view-transition-rectangle-bottom-up-blur";
 
 function useRectangleBottomUpBlurToggle() {
@@ -84,10 +74,8 @@ function useRectangleBottomUpBlurToggle() {
   }, []);
 
   const toggle = useCallback(() => {
-    // Optimistic local flip so icon animates immediately
     setIsDark((v) => !v);
 
-    // ensure css present
     updateStyles(RECTANGLE_BOTTOM_UP_BLUR_CSS);
 
     if (typeof window === "undefined") return;
@@ -142,10 +130,6 @@ function useRectangleBottomUpBlurToggle() {
   };
 }
 
-/**
- * ThemeToggle component — uses the above hook.
- * Keeps your animated sun/moon markup + motion transitions intact.
- */
 export const ThemeToggle = ({ className }: { className?: string }) => {
   const { isDark, toggle } = useRectangleBottomUpBlurToggle();
 

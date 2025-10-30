@@ -47,7 +47,7 @@ export const Grid = () => {
 
           <GridItem
             link="Micro-Interactions"
-            href="/blogs"
+            href="/writing"
             p="Dive into the latest trendy web designs..."
           />
         </div>

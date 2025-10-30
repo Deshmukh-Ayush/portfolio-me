@@ -16,7 +16,7 @@ export const Connect = () => {
             @everywhereayush
           </Underline>
           <Underline
-            className="text-neutral-100"
+            className="dark:text-neutral-100"
             href="mailto:ayushdeshmukh301@gmail.com"
           >
             ayushdeshmukh301@gmail.com
