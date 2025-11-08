@@ -11,12 +11,12 @@ export const Connect = () => {
         <span className="flex gap-4">
           <Underline
             href="https://x.com/everywhereayush"
-            className="dark:text-neutral-100"
+            className="md:text-md text-sm dark:text-neutral-100"
           >
             @everywhereayush
           </Underline>
           <Underline
-            className="dark:text-neutral-100"
+            className="md:text-md text-sm dark:text-neutral-100"
             href="mailto:ayushdeshmukh301@gmail.com"
           >
             ayushdeshmukh301@gmail.com

@@ -6,7 +6,7 @@ export const Grid = () => {
     <div className="grid w-full grid-cols-3 py-14 text-neutral-400">
       <div className="flex flex-col justify-start">
         <div>
-          <h2 className="text-md text-neutral-700 dark:text-neutral-400">
+          <h2 className="md:text-md text-sm text-neutral-700 dark:text-neutral-400">
             Building
           </h2>
 
@@ -20,7 +20,7 @@ export const Grid = () => {
       </div>
       <div className="flex flex-col justify-start">
         <div>
-          <h2 className="text-md text-neutral-700 dark:text-neutral-400">
+          <h2 className="md:text-md text-sm text-neutral-700 dark:text-neutral-400">
             Work
           </h2>
 
@@ -41,7 +41,7 @@ export const Grid = () => {
       </div>
       <div className="flex flex-col justify-start">
         <div>
-          <h2 className="text-md text-neutral-700 dark:text-neutral-400">
+          <h2 className="md:text-md text-sm text-neutral-700 dark:text-neutral-400">
             I write too!!!
           </h2>
 
@@ -72,13 +72,15 @@ const GridItem = ({
       <span className="inline-flex">
         <Underline01
           href={href}
-          className="flex text-black dark:text-neutral-100"
+          className="md:text-md flex text-sm text-black dark:text-neutral-100"
           target={target}
         >
           {link}{" "}
         </Underline01>
       </span>
-      <p className="text-md text-neutral-600 dark:text-neutral-400">{p}</p>
+      <p className="md:text-md text-sm text-neutral-600 dark:text-neutral-400">
+        {p}
+      </p>
     </div>
   );
 };

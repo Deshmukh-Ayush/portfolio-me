@@ -22,16 +22,16 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="en">
       <body className={`${openSans.className} antialiased`}>
-        <ScreenGate>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </ScreenGate>
+        {/* <ScreenGate> */}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+        {/* </ScreenGate> */}
       </body>
     </html>
   );

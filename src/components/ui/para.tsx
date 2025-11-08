@@ -11,7 +11,7 @@ export const Para = ({
   return (
     <div
       className={cn(
-        "text-md text-neutral-700 dark:text-neutral-200",
+        "md:text-md text-sm text-neutral-700 dark:text-neutral-200",
         className,
       )}
     >

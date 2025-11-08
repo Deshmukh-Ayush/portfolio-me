@@ -19,7 +19,7 @@ export const Now = () => {
           {" "}
           I am Ayush Deshmukh
         </span>
-        , A Design Engineer by passion and profession. I am 21 right now and
+        , A Design Engineer by passion and profession. I am 20 right now and
         currently in 3rd year of my engineering, and I&apos;m dropping college
         soon.
       </Para>
@@ -38,7 +38,7 @@ export const Now = () => {
           I&apos;m working on Cloff AI
         </span>
         , which is an complete frontend replacement for any company that wants
-        to automate thier frontend itself.
+        to automate their frontend itself.
       </Para>
       <Para className="mt-4">
         Apart from building and working{" "}

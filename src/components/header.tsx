@@ -15,7 +15,7 @@ export const Header = ({ className }: { className?: string }) => {
   return (
     <div className={cn("grid grid-cols-1 grid-rows-3", className)}>
       <div>
-        <Heading className="text-3xl">Ayush Deshmukh</Heading>
+        <Heading className="text-xl md:text-3xl">Ayush Deshmukh</Heading>
         <Para
           className={`${newsReader.className} mt-2 text-lg dark:text-neutral-400`}
         >
@@ -25,7 +25,7 @@ export const Header = ({ className }: { className?: string }) => {
       <div>
         <Para>
           <span
-            className={`${newsReader.className} text-lg text-neutral-800 italic dark:text-neutral-200`}
+            className={`${newsReader.className} text-md text-neutral-800 italic md:text-lg dark:text-neutral-200`}
           >
             Designing for the community
           </span>
@@ -50,7 +50,7 @@ export const Header = ({ className }: { className?: string }) => {
         </Para>
       </div>
 
-      <div className="flex items-center justify-start gap-8 py-6">
+      <div className="flex flex-wrap items-center justify-start gap-4 py-4 sm:justify-center sm:gap-6 sm:py-5 md:justify-start md:gap-8 md:py-6">
         <Chips>X</Chips>
         <Chips>Linkedin</Chips>
         <Chips>Instagram</Chips>
