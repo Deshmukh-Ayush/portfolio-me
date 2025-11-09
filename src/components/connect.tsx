@@ -8,7 +8,7 @@ export const Connect = () => {
       <Para className="flex w-full justify-between">Connect</Para>
       <Para className="mt-8 dark:text-neutral-400">
         Reach me at{" "}
-        <span className="flex-col gap-4 md:flex">
+        <span className="flex-col gap-4 md:flex md:flex-row">
           <Underline
             href="https://x.com/everywhereayush"
             className="md:text-md text-sm dark:text-neutral-100"
