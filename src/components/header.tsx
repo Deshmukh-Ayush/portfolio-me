@@ -51,10 +51,12 @@ export const Header = ({ className }: { className?: string }) => {
       </div>
 
       <div className="flex flex-wrap items-center justify-start gap-4 py-4 sm:justify-center sm:gap-6 sm:py-5 md:justify-start md:gap-8 md:py-6">
-        <Chips>X</Chips>
-        <Chips>Linkedin</Chips>
-        <Chips>Instagram</Chips>
-        <Chips>Contact</Chips>
+        <Chips href="https://x.com/everywhereayush">X</Chips>
+        <Chips href="https://www.linkedin.com/in/ayush-deshmukh-144a86277/">
+          Linkedin
+        </Chips>
+        <Chips href="https://instagram.com/everywhereayush">Instagram</Chips>
+        <Chips href="mailto:ayushdeshmukh301@gmail.com">Contact</Chips>
       </div>
     </div>
   );

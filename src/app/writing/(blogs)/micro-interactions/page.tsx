@@ -36,7 +36,7 @@ export default function MicroInteractionBlog() {
         </Para>
 
         <Para
-          className={`${newsReader.className} md:text-md mb-6 border-l-4 border-neutral-300 pl-4 text-sm text-neutral-600 dark:border-neutral-700 dark:text-neutral-400`}
+          className={`${newsReader.className} md:text-md text-md mb-6 border-l-4 border-neutral-300 pl-4 text-neutral-600 dark:border-neutral-700 dark:text-neutral-400`}
         >
           &quot;Microinteractions are the small, purposeful moments in digital
           products that guide, reassure, and engage users. They&apos;re the
@@ -74,7 +74,7 @@ export default function MicroInteractionBlog() {
 
         <Para className="mb-4">
           <span
-            className={`${newsReader.className} md:text-md text-sm text-neutral-800 dark:text-neutral-200`}
+            className={`${newsReader.className} text-md text-neutral-800 md:text-lg dark:text-neutral-200`}
           >
             To summarize this Micro-interactions are not just design they are:
           </span>
@@ -95,7 +95,7 @@ export default function MicroInteractionBlog() {
 
         <Para className="mb-4">
           <span
-            className={`${newsReader.className} md:text-md text-sm text-neutral-800 dark:text-neutral-200`}
+            className={`${newsReader.className} text-md text-neutral-800 md:text-lg dark:text-neutral-200`}
           >
             Now I want you to focus on this part very well.
           </span>
@@ -203,7 +203,7 @@ export default function MicroInteractionBlog() {
 
         <Para className="mb-4">
           <span
-            className={`${newsReader.className} md:text-md text-sm text-neutral-800 dark:text-neutral-200`}
+            className={`${newsReader.className} md:text-md text-md text-neutral-800 dark:text-neutral-200`}
           >
             Always keep your design such that it should sell. Design is looses
             it&apos;s shine when everyone likes it no one wants to invest their
@@ -253,14 +253,14 @@ export default function MicroInteractionBlog() {
 
         <Para className="mb-6">
           <span
-            className={`${newsReader.className} md:text-md text-sm text-neutral-800 dark:text-neutral-200`}
+            className={`${newsReader.className} text-md text-neutral-800 md:text-lg dark:text-neutral-200`}
           >
             Knowing when to add an animation, how, and why, can drastically
             change how your product is perceived and felt.
           </span>
         </Para>
 
-        <Para className="mt-12 mb-4">
+        <Para className="mt-6 mb-4">
           Thank you for reading this blog. I hope this blog will help you
           kickstart your journey towards mastering micro-interactions.
         </Para>

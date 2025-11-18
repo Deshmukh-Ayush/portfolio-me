@@ -11,6 +11,7 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
 import { Newsreader } from "next/font/google";
 import Link from "next/link";
+import { BackBtn } from "@/components/ui/back-btn";
 
 const newsReader = Newsreader({
   subsets: ["latin"],
@@ -24,6 +25,7 @@ export default function BlogsPage() {
       <Clock className="fixed top-4 right-4 hidden md:block" />
       <MusicToggleButton className="fixed right-4 bottom-2 hidden md:block" />
       <ThemeToggle className="fixed right-18 bottom-2 hidden cursor-pointer md:block" />
+      <BackBtn href="/" />
       <Container className="bg-neutral-100 dark:bg-neutral-950">
         <Heading className="text-sm md:text-xl">All Blogs</Heading>
         <div className="py-10">

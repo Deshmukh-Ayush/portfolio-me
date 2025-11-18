@@ -7,45 +7,50 @@ import { motion } from "motion/react";
 export const Chips = ({
   children,
   className,
+  href,
 }: {
   children: React.ReactNode;
   className?: string;
+  href: string;
 }) => {
   return (
-    <motion.div
-      initial="initial"
-      whileHover="animate"
-      className={cn(
-        "text-md flex cursor-pointer items-center justify-center gap-2 rounded-4xl bg-neutral-800 px-4 py-1 text-neutral-100 transition-all duration-100 ease-in-out hover:bg-neutral-700 dark:bg-neutral-900",
-        "border-t border-r border-neutral-500 dark:border-neutral-800",
+    <a href={href} target="_blank" className="active:scale-98">
+      <motion.div
+        initial="initial"
+        whileHover="animate"
+        className={cn(
+          "text-md flex cursor-pointer items-center justify-center gap-2 rounded-4xl bg-neutral-800 px-4 py-1 text-neutral-100 transition-all duration-100 ease-in-out hover:bg-neutral-700 dark:bg-neutral-900",
+          "border-t border-r border-neutral-500 dark:border-neutral-800",
 
-        className,
-      )}
-    >
-      {children}
-      <span className="relative ml-1 inline-block overflow-hidden">
-        <motion.span
-          variants={{
-            initial: { x: 0, y: 0, opacity: 1 },
-            animate: { x: 10, y: -10, opacity: 0 },
-          }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="inline-block"
-        >
-          <Arrow />
-        </motion.span>
-        <motion.span
-          variants={{
-            initial: { x: -10, y: 10, opacity: 0 },
-            animate: { x: 0, y: 0, opacity: 1 },
-          }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="absolute inset-0 inline-block"
-        >
-          <Arrow />
-        </motion.span>
-      </span>
-    </motion.div>
+          className,
+        )}
+      >
+        {children}
+
+        <span className="relative ml-1 inline-block overflow-hidden">
+          <motion.span
+            variants={{
+              initial: { x: 0, y: 0, opacity: 1 },
+              animate: { x: 10, y: -10, opacity: 0 },
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="inline-block"
+          >
+            <Arrow />
+          </motion.span>
+          <motion.span
+            variants={{
+              initial: { x: -10, y: 10, opacity: 0 },
+              animate: { x: 0, y: 0, opacity: 1 },
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="absolute inset-0 inline-block"
+          >
+            <Arrow />
+          </motion.span>
+        </span>
+      </motion.div>
+    </a>
   );
 };
 
