@@ -32,6 +32,12 @@ export default function BlogsPage() {
           <SingleBlog href="/writing/micro-interactions" date="Nov 8, 2025">
             Micro-Interactions
           </SingleBlog>
+          <SingleBlog
+            href="/writing/everything-you-know-about-next-image-is-wrong"
+            date="Nov 13, 2025"
+          >
+            Everything You Think You Know About next/image Is Wrong!
+          </SingleBlog>
         </div>
       </Container>
       <Footer className="fixed bottom-0 z-9" />
