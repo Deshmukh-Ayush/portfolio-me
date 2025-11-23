@@ -3,15 +3,13 @@
 import Container from "@/components/container";
 import { Footer } from "@/components/footer";
 import { Heading } from "@/components/ui/heading";
-import { useRef } from "react";
-
 import { MusicToggleButton } from "@/components/ui/special-effects/music";
 import { Clock } from "@/components/ui/special-effects/sliding-numbers";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { BackBtn } from "@/components/ui/back-btn";
 import { cn } from "@/lib/utils";
 import { Newsreader } from "next/font/google";
 import Link from "next/link";
-import { BackBtn } from "@/components/ui/back-btn";
 
 const newsReader = Newsreader({
   subsets: ["latin"],
@@ -20,6 +18,19 @@ const newsReader = Newsreader({
 });
 
 export default function BlogsPage() {
+  const blogs = [
+    {
+      href: "/writing/everything-you-know-about-next-image-is-wrong",
+      date: "Nov 13, 2025",
+      title: "Everything You Think You Know About next/image Is Wrong!",
+    },
+    {
+      href: "/writing/micro-interactions",
+      date: "Nov 8, 2025",
+      title: "Micro-Interactions",
+    },
+  ];
+
   return (
     <div className="relative min-h-screen w-full bg-neutral-100 dark:bg-neutral-950">
       <Clock className="fixed top-4 right-4 hidden md:block" />
@@ -29,15 +40,16 @@ export default function BlogsPage() {
       <Container className="bg-neutral-100 dark:bg-neutral-950">
         <Heading className="text-sm md:text-xl">All Blogs</Heading>
         <div className="py-10">
-          <SingleBlog href="/writing/micro-interactions" date="Nov 8, 2025">
-            Micro-Interactions
-          </SingleBlog>
-          <SingleBlog
-            href="/writing/everything-you-know-about-next-image-is-wrong"
-            date="Nov 13, 2025"
-          >
-            Everything You Think You Know About next/image Is Wrong!
-          </SingleBlog>
+          {blogs.map((blog, idx) => (
+            <SingleBlog
+              key={blog.href}
+              href={blog.href}
+              date={blog.date}
+              index={idx + 1}
+            >
+              {blog.title}
+            </SingleBlog>
+          ))}
         </div>
       </Container>
       <Footer className="fixed bottom-0 z-9" />
@@ -45,24 +57,19 @@ export default function BlogsPage() {
   );
 }
 
-// Module-level counter (persists across component instances)
-
 export const SingleBlog = ({
   children,
   className,
   href,
   date,
+  index, // 3. Accept the index as a prop
 }: {
   children: React.ReactNode;
   className?: string;
   href: string;
   date: string | Date;
+  index: number; // Add type definition
 }) => {
-  let blogCounter = 0;
-  // Assign index once per component instance
-  const indexRef = useRef(++blogCounter);
-
-  // Format date if it's a Date object
   const formattedDate =
     date instanceof Date
       ? date.toLocaleDateString("en-US", {
@@ -81,8 +88,8 @@ export const SingleBlog = ({
       )}
     >
       <div>
-        <span className="text-sm text-neutral-500">#{indexRef.current}</span>{" "}
-        {children}
+        {/* 4. Use the prop directly */}
+        <span className="text-sm text-neutral-500">#{index}</span> {children}
       </div>
       <div>
         <span className="text-sm text-neutral-500">{formattedDate}</span>

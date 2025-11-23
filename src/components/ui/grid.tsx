@@ -46,6 +46,11 @@ export const Grid = () => {
           </h2>
 
           <GridItem
+            link="Demystifying next/image"
+            href="/writing/everything-you-know-about-next-image-is-wrong"
+            p="Disecting next/image"
+          />
+          <GridItem
             link="Micro-Interactions"
             href="/writing/micro-interactions"
             p="Dive into the latest trendy web designs..."
