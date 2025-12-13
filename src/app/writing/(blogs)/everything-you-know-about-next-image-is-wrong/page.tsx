@@ -270,9 +270,9 @@ export default function TheRealSlimShady() {
         </Heading>
         <Para className="mb-6">
           Another potential point of confusion is that the width property passed
-          to next/image doesn't represent the actual width to which the image
-          will be resized when the screen will be subjected to a lower width
-          scenerio. As we noted from the example at the start of the blog,
+          to next/image doesn&#39;t represent the actual width to which the
+          image will be resized when the screen will be subjected to a lower
+          width scenerio. As we noted from the example at the start of the blog,
           passing width={500} to a component will result in the image being
           resized to a width of 640px, as evident in the generated URL:
         </Para>
@@ -281,9 +281,9 @@ export default function TheRealSlimShady() {
         </Para>
         <Para className="mb-6">
           If you expect the x2 retina version to utilize an image width of
-          1000px or 1280px, you’re in for a surprise. The actual width used will
-          be 1080px. Naturally, naturally you might wonder where these numbers
-          are coming from.
+          1000px or 1280px, you&#39;re in for a surprise. The actual width used
+          will be 1080px. Naturally, naturally you might wonder where these
+          numbers are coming from.
         </Para>
         <Image
           src="/blogs/everything-next-image/image-blog-img-re.png"
