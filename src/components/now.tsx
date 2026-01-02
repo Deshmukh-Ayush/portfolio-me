@@ -65,7 +65,7 @@ export const Now = () => {
           href="https://www.amazon.in/Design-Everyday-Things-Don-Norman/dp/0465050654"
           className={`${newsReader.className} text-lg underline underline-offset-8`}
         >
-          The Design of Everyday Things by Don Norman.
+          Don't Make Me Think by Steve Krug.
         </Underline>
       </Para>
     </div>

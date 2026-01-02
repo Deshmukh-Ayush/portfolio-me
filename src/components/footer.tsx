@@ -1,4 +1,3 @@
-import React from "react";
 import { cn } from "@/lib/utils";
 
 export const Footer = ({ className }: { className?: string }) => {
@@ -12,7 +11,7 @@ export const Footer = ({ className }: { className?: string }) => {
       <div className="mx-auto w-full px-6 md:min-w-3xl">
         <div className="flex w-full items-center justify-between py-1 md:px-8">
           <p className="text-xs dark:text-neutral-600">Design Engineer</p>
-          <p className="text-xs dark:text-neutral-600">2025</p>
+          <p className="text-xs dark:text-neutral-600">2026</p>
         </div>
       </div>
     </div>
