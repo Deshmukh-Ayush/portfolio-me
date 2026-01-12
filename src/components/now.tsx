@@ -20,8 +20,7 @@ export const Now = () => {
           I am Ayush Deshmukh
         </span>
         , A Design Engineer by passion and profession. I am 20 right now and
-        currently in 3rd year of my engineering, and I&apos;m dropping college
-        soon.
+        currently dropped off my engineering at 3rd year.
       </Para>
       <Para className="mt-4">
         I started my journey as a frontend developer and then full-stack, I
