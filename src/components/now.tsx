@@ -34,10 +34,11 @@ export const Now = () => {
       <Para className="mt-8">
         Currently{" "}
         <span className={`${newsReader.className} text-lg`}>
-          I&apos;m working on Cloff AI
+          I&apos;m working on Scrunity
         </span>
-        , which is an complete frontend replacement for any company that wants
-        to automate their frontend itself.
+        , which helps you brainstorm your ideas and finally come to a
+        conclusion. It is an AI canvas where you can dump your ideas and let AI
+        help you further.
       </Para>
       <Para className="mt-4">
         Apart from building and working{" "}
