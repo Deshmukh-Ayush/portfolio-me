@@ -14,6 +14,10 @@ export const metadata: Metadata = {
   description: "Ayush's Portfolio",
 };
 
+import { JsonLd } from "@/components/json-ld";
+
+// ... existing imports
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -22,6 +26,7 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="en">
       <body className={`${openSans.className} antialiased`}>
+        <JsonLd />
         {/* <ScreenGate> */}
         <ThemeProvider
           attribute="class"
