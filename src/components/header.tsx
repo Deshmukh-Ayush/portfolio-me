@@ -42,7 +42,7 @@ export const Header = ({ className }: { className?: string }) => {
         <Para className="mt-10">
           In the past I have developed the complete frontend architecture for{" "}
           <Underline
-            href="https://www.satverse.in"
+            href="https://satverse.in/"
             className="underline underline-offset-5"
           >
             Satverse AI.

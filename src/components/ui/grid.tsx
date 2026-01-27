@@ -33,7 +33,7 @@ export const Grid = () => {
 
           <GridItem
             link="Satverse AI"
-            href="https://www.satverse.in"
+            href="https://satverse.in/"
             p="AI B2B SaaS for luxury brands."
             target="_blank"
           />
