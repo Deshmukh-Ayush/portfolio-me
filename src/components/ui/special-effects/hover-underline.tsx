@@ -20,7 +20,7 @@ export const HoverUnderline = ({
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <div className="relative h-[150px] w-[200px] overflow-hidden rounded-xl">
+      <div className="relative h-37.5 w-50 overflow-hidden rounded-xl">
         <AnimatePresence>
           {hovered && (
             <motion.img
@@ -45,7 +45,7 @@ export const HoverUnderline = ({
         className={cn(
           "group text-md relative flex cursor-pointer items-center text-neutral-700",
           "before:pointer-events-none before:absolute before:top-[1.5em] before:left-0 before:h-[0.05em] before:w-full before:bg-current before:content-['']",
-          "before:origin-right before:scale-x-0 before:transition-transform before:duration-300 before:ease-[cubic-bezier(0.4,0,0.2,1)]",
+          "before:origin-right before:scale-x-0 before:transition-transform before:duration-300 before:ease-in-out",
           "hover:before:origin-left hover:before:scale-x-100",
           className,
         )}
@@ -72,8 +72,8 @@ export const Underline = ({
         "group relative inline-block",
         className,
         "before:pointer-events-none before:absolute before:bottom-0 before:left-0 before:h-[0.1em] before:w-full before:content-['']",
-        "before:bg-gradient-to-r before:from-[#112649] before:via-[#2477eb] before:to-[#0eb2f5]",
-        "before:origin-right before:scale-x-0 before:transition-transform before:duration-300 before:ease-[cubic-bezier(0.4,0,0.2,1)]",
+        "before:bg-linear-to-r before:from-[#112649] before:via-[#2477eb] before:to-[#0eb2f5]",
+        "before:origin-right before:scale-x-0 before:transition-transform before:duration-300 before:ease-in-out",
         "hover:before:origin-left hover:before:scale-x-100",
         "before:shadow-[0_0_8px_rgba(50,197,255,0.6),0_0_12px_rgba(0,212,255,0.4)]",
         "hover:before:shadow-[0_0_12px_rgba(50,197,255,0.8),0_0_20px_rgba(0,212,255,0.6),0_0_24px_rgba(0,255,255,0.4)]",
@@ -102,14 +102,14 @@ export const Underline01 = ({
       className={cn(
         "group relative flex items-center",
         "before:pointer-events-none before:absolute before:top-[1.5em] before:left-0 before:h-[0.05em] before:w-full before:bg-current before:content-['']",
-        "before:origin-right before:scale-x-0 before:transition-transform before:duration-300 before:ease-[cubic-bezier(0.4,0,0.2,1)]",
+        "before:origin-right before:scale-x-0 before:transition-transform before:duration-300 before:ease-in-out",
         "hover:before:origin-left hover:before:scale-x-100",
         className,
       )}
     >
       {children}
       <svg
-        className="mt-[0em] ml-[0.3em] size-[0.65em] translate-y-1 opacity-0 transition-all duration-300 [motion-reduce:transition-none] group-hover:translate-y-0 group-hover:opacity-100 motion-reduce:transition-none"
+        className="mt-0 ml-[0.3em] size-[0.65em] translate-y-1 opacity-0 transition-all duration-300 [motion-reduce:transition-none] group-hover:translate-y-0 group-hover:opacity-100 motion-reduce:transition-none"
         fill="none"
         viewBox="0 0 10 10"
         xmlns="http://www.w3.org/2000/svg"
