@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 };
 
 import { JsonLd } from "@/components/json-ld";
-
+import { PostHogProvider } from "./providers";
 
 export default function RootLayout({
   children,
@@ -56,7 +56,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <PostHogProvider>{children}</PostHogProvider>
         </ThemeProvider>
         {/* </ScreenGate> */}
       </body>

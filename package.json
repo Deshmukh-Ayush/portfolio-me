@@ -20,11 +20,14 @@
     "motion": "^12.34.3",
     "next": "^16.1.6",
     "next-themes": "^0.4.6",
+    "posthog-js": "^1.352.0",
+    "posthog-node": "^5.21.2",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "react-syntax-highlighter": "^16.1.0",
     "react-use-measure": "^2.1.7",
     "tailwind-merge": "^3.3.1",
+    "torph": "^0.0.5",
     "use-sound": "^5.0.0"
   },
   "devDependencies": {
