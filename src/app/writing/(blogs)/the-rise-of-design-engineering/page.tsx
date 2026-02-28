@@ -86,11 +86,25 @@ export default function MicroInteractionBlog() {
           animations and interations on top of it feels overwhelming for the
           frontend teams.
         </Para>
-        <Para>
-          And this is where Design Engineering comes in. Design Engineering is a
-          new discipline that bridges the gap between design and development
+        <Para className="mb-8">
+          And this is where Design Engineering comes in. Design Engineering is
+          the new discipline that fills the gap between design and development
           teams.
         </Para>
+
+        <Heading className="mb-6">What do they do?</Heading>
+        <Para>We do 2 things</Para>
+        <Para>
+          We manage/create design systems and as well as code and critique them.
+          Yes this is what our job is.
+        </Para>
+        <Para className="mb-8">
+          Our job is to make product look as good as possible by fixing every
+          micro-detail and adding life to it by adding interations to make it
+          fulfilling.
+        </Para>
+
+        <Heading className="">How do we differ?</Heading>
       </Container>
 
       <Footer className="fixed bottom-0 z-9" />

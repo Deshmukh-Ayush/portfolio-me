@@ -62,13 +62,13 @@ export const SingleBlog = ({
   className,
   href,
   date,
-  index, // 3. Accept the index as a prop
+  index,
 }: {
   children: React.ReactNode;
   className?: string;
   href: string;
   date: string | Date;
-  index: number; // Add type definition
+  index: number;
 }) => {
   const formattedDate =
     date instanceof Date
@@ -83,12 +83,11 @@ export const SingleBlog = ({
     <Link
       href={href}
       className={cn(
-        `${newsReader.className} flex w-full items-center justify-between rounded-2xl bg-neutral-100 py-1 transition-all duration-200 ease-in-out hover:bg-neutral-300 md:px-4 dark:bg-neutral-950 dark:hover:bg-neutral-900`,
+        `${newsReader.className} flex w-full items-center justify-between rounded-2xl bg-neutral-100 py-1 transition-all duration-100 ease-in-out hover:bg-neutral-300 md:px-4 dark:bg-neutral-950 dark:hover:bg-neutral-900`,
         className,
       )}
     >
       <div>
-        {/* 4. Use the prop directly */}
         <span className="text-sm text-neutral-500">#{index}</span> {children}
       </div>
       <div>
