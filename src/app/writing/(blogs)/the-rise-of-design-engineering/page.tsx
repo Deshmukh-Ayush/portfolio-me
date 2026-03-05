@@ -105,9 +105,84 @@ export default function MicroInteractionBlog() {
         </Para>
 
         <Heading className="">How do we differ?</Heading>
+        <Para className="mb-6">
+          You might be thinking that but how does a design engineer differ from
+          a frontend developer, backend developer or a UI designer.
+        </Para>
+        <Para className="mb-6">
+          This is a very interesting question and let me explain. In a company
+          there are two teams one of designers and other of frontend devs, when
+          designers gives UI to frontend devs they are primarily concerned about
+          how to replicate the exact design. And designers also are concered
+          about how the design will appear to the user and vice versa but
+          clearly there is a always a gap between the two teams that stops
+          frontend to reach the finest potential of the design. To fill this gap
+          we exist.
+        </Para>
+
+        <Para className="mb-6">
+          Designer gives the design to the frontend devs saying hey can you
+          design it? But the frontend devs can replicate the design but they
+          lack the "taste" the design engineer have to make the decisions
+          themselves .
+        </Para>
+
+        <Para className="mb-6">
+          They lack that opinionated mindset and push to make things as good as
+          possible so they lack the trait which design engineer's have. Yes we
+          both focus on building the final product but we care about pushing the
+          boudaries and making it as good as possible. We don't have to rely on
+          designs as whole to the job.
+        </Para>
+
+        <Para className="mb-6">
+          Like full stack developers whose skills are broadly spread out, in the
+          similar fashion design engineers also have that broad skillset but we
+          got the depth in design, we got that second layer which most people
+          don't see that we make sure to get the tiniest interactions feel
+          right.
+        </Para>
+
+        <Para className="mb-8">
+          And designers as well they design in figma but they can't actually
+          deliver the final product because you cannot browse a website in figma
+          and if you're wondering about no code tools and design to code things,
+          brother these are only limited to very basic stuff not a produciton
+          grade product. But that's why we exist we cannot only design but can
+          convert it into code.
+        </Para>
+
+        <Heading className="mb-6">Why do we need them?</Heading>
+        <Para className="mb-6">
+          So you might be thinking why do we need them? And I'll tell you three
+          important reasons that why you need us.
+        </Para>
+
+        <Para className="mb-6">
+          So you might be thinking why do we need them? And I'll tell you three
+          important reasons that why you need us.
+        </Para>
+
+        <Para className="mb-6">1. Slop</Para>
+        <Para className="mb-6">
+          Nowadays frontend devs and designers are vibe coding and designing a
+          lot and they rely on AI a lot more than you can even think off and in
+          the end what AI spits is this below example, A complete utter trash
+          that normal people use not because they want to but because they have
+          to. Poorly done scroll driven animations, gradients everywhere without
+          thinking, bad typography, bad styling, bad layouts are pure examples
+          of Slop Overall you can feel that there is no cohesiveness between the
+          design. We as design engineers make sure this thing never happens. Our
+          job is to make the product differentiate to make a good product also
+          look special to people.
+        </Para>
+
+        {/* todo: add image */}
+
+        <Para className="mb-6">2. Taste</Para>
       </Container>
 
-      <Footer className="fixed bottom-0 z-9" />
+      <Footer />
     </div>
   );
 }
