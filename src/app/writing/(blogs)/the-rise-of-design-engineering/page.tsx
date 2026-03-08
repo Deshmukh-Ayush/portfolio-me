@@ -1,6 +1,7 @@
 "use client";
 
 import Container from "@/components/container";
+import { ButtonExample } from "@/components/examples/button-example";
 import { Footer } from "@/components/footer";
 import { BackBtn } from "@/components/ui/back-btn";
 import { Heading } from "@/components/ui/heading";
@@ -180,6 +181,35 @@ export default function MicroInteractionBlog() {
         {/* todo: add image */}
 
         <Para className="mb-6">2. Taste</Para>
+        {/* demo: two different animations */}
+        <ButtonExample />
+        <Para>
+          Ok now try the above thing and do you see the difference between the
+          two buttons?
+        </Para>
+        <Para>
+          Notice that both the buttons have three states but the first one is
+          skipping the transitions and is feeling abrupt meanwhile the second
+          button is shifting/morphing the layout and text to adjust such that it
+          is looking very smooth to our eyes and an interaction that sits in
+          your mind for a long time. That's taste for you
+        </Para>
+        <Para className="mb-6">
+          You must've seen the first one in places now just imagine how good
+          will it be if replace it with the second one.
+        </Para>
+        <Para>
+          The thing you need to take away is that how I can make this tiny
+          interaction into something that people can remember. For refs some
+          examples are.... Linear, Resend, Neon, Stripe etc.
+        </Para>
+        <Para>3. Speed</Para>
+        <Para>
+          This is something which makes a pillar like difference between other
+          devs and design engineers. See the below example
+        </Para>
+        {/* example */}
+        <Para className="mb-6">As you can see that I've built a</Para>
       </Container>
 
       <Footer />
