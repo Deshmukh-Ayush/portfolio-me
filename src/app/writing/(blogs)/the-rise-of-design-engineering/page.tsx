@@ -1,6 +1,7 @@
 "use client";
 
 import Container from "@/components/container";
+import AnimatedGraphic from "@/components/examples/AnimatedGraphic";
 import { ButtonExample } from "@/components/examples/button-example";
 import { Footer } from "@/components/footer";
 import { BackBtn } from "@/components/ui/back-btn";
@@ -38,7 +39,7 @@ export default function MicroInteractionBlog() {
         <Para className="mb-6">Okay so let's start....</Para>
 
         <Para>
-          Everyone cares about there prodcut so much and day by day attempts to
+          Everyone cares about there product so much and day by day attempts to
           improve it and thus we've got two types of people in a company.
         </Para>
         <Para className="ml-2">1. Who cares about how things look.</Para>
@@ -107,8 +108,8 @@ export default function MicroInteractionBlog() {
 
         <Heading className="">How do we differ?</Heading>
         <Para className="mb-6">
-          You might be thinking that but how does a design engineer differ from
-          a frontend developer, backend developer or a UI designer.
+          You might be thinking that!, but how does a design engineer differ
+          from a frontend developer, backend developer or a UI designer.
         </Para>
         <Para className="mb-6">
           This is a very interesting question and let me explain. In a company
@@ -116,7 +117,7 @@ export default function MicroInteractionBlog() {
           designers gives UI to frontend devs they are primarily concerned about
           how to replicate the exact design. And designers also are concered
           about how the design will appear to the user and vice versa but
-          clearly there is a always a gap between the two teams that stops
+          clearly there is always a gap between the two teams that stops
           frontend to reach the finest potential of the design. To fill this gap
           we exist.
         </Para>
@@ -133,7 +134,7 @@ export default function MicroInteractionBlog() {
           possible so they lack the trait which design engineer's have. Yes we
           both focus on building the final product but we care about pushing the
           boudaries and making it as good as possible. We don't have to rely on
-          designs as whole to the job.
+          designs as whole to do the job.
         </Para>
 
         <Para className="mb-6">
@@ -159,18 +160,13 @@ export default function MicroInteractionBlog() {
           important reasons that why you need us.
         </Para>
 
-        <Para className="mb-6">
-          So you might be thinking why do we need them? And I'll tell you three
-          important reasons that why you need us.
-        </Para>
-
         <Para className="mb-6">1. Slop</Para>
         <Para className="mb-6">
           Nowadays frontend devs and designers are vibe coding and designing a
-          lot and they rely on AI a lot more than you can even think off and in
-          the end what AI spits is this below example, A complete utter trash
-          that normal people use not because they want to but because they have
-          to. Poorly done scroll driven animations, gradients everywhere without
+          lot and they rely on AI a lot more than you can even fathom and in the
+          end what AI spits is this below example, A complete utter trash that
+          normal people use not because they want to but because they have to.
+          Poorly done scroll driven animations, gradients everywhere without
           thinking, bad typography, bad styling, bad layouts are pure examples
           of Slop Overall you can feel that there is no cohesiveness between the
           design. We as design engineers make sure this thing never happens. Our
@@ -181,7 +177,6 @@ export default function MicroInteractionBlog() {
         {/* todo: add image */}
 
         <Para className="mb-6">2. Taste</Para>
-        {/* demo: two different animations */}
         <ButtonExample />
         <Para>
           Ok now try the above thing and do you see the difference between the
@@ -192,24 +187,110 @@ export default function MicroInteractionBlog() {
           skipping the transitions and is feeling abrupt meanwhile the second
           button is shifting/morphing the layout and text to adjust such that it
           is looking very smooth to our eyes and an interaction that sits in
-          your mind for a long time. That's taste for you
+          your mind for a long time. That's taste for you.
         </Para>
         <Para className="mb-6">
           You must've seen the first one in places now just imagine how good
           will it be if replace it with the second one.
         </Para>
-        <Para>
+        <Para className="mb-6">
           The thing you need to take away is that how I can make this tiny
           interaction into something that people can remember. For refs some
           examples are.... Linear, Resend, Neon, Stripe etc.
         </Para>
-        <Para>3. Speed</Para>
-        <Para>
+        <Para className="mb-6">3. Speed</Para>
+        <Para className="mb-6">
           This is something which makes a pillar like difference between other
-          devs and design engineers. See the below example
+          devs and design engineers. See the below example (Try hover over it
+          and if you're on mobile try clicking it.)
         </Para>
         {/* example */}
-        <Para className="mb-6">As you can see that I've built a</Para>
+        <div className="relative mb-6 flex h-100 w-2xl items-center justify-center rounded-2xl border border-neutral-400">
+          <AnimatedGraphic />
+        </div>
+        <Para className="mb-6">
+          As you can see that I've built an SVG hovering Interaction but the
+          thing is I've made it in less than 10 mins and yet it looks good, it
+          feels good, is responsive and captures a very nice feedback from the
+          user. If you're wondering where did I get that SVG from. I created it
+          some time before for my product in figma and I wanted to animate it so
+          I exported it as SVG and for the animations part I did it with
+          Antigravity with opus 4.6 plugged in. And it just took me 3 prompts
+          and a bit of adding taste to it and it sums up to 10 minutes in total
+          to generate this beautifull interaction.
+        </Para>
+        <Para className="mb-8">
+          Notice the speed, generally to do this type of interaction devs take
+          hours sitting and cracking the exact details or simply giving it to AI
+          but forgets the taste.
+        </Para>
+
+        <Heading className="mb-6">What's taste?</Heading>
+        <Para className="mb-6">
+          Now I want to discuss more about taste and it is actually very simple
+          to understand.
+        </Para>
+        <Para className="mb-6">
+          Rick Robin - He is the guy who's been in the room for a long time but
+          the thing is he is a musician but he is not the best selling artist or
+          not even near the best title but the thing about him is people like
+          Jay Z, Beastie Boyz, Adele and list goes on and on. Why? because
+          people respect his opinion people goes to him just to ask for his
+          opinion before releasing the song, you know what i mean right!
+        </Para>
+        <Para>
+          The same way design engineers are, people come to us to get that
+          opinion because we have that opiniated taste that makes the great
+          product feel special.
+        </Para>
+
+        <Para className="mb-6">
+          Now let's bust a myth that taste is inherited.
+        </Para>
+        <Para className="mb-6">
+          People think that taste is like a some generational wealth type shit
+          which only few people have around the world because I've read it on
+          reddit, X and also on substack as well. I mean wtf. I'm super against
+          this thing and let me show you some ways where you develop taste
+          organically.
+        </Para>
+
+        <Para className="mb-6">
+          1. Follow multiple design engineers on X they regularly share their
+          work on X and post very good content which will help you learn by
+          watching them. Some of the good ones which I follow are Manu Paaji,
+          Emil Kowalski, Jakub, Nitish Khagwal etc.
+        </Para>
+        <Para className="mb-6">
+          2. Start observing the tiniest details on every well
+          designed/engineerd websites like resend, linear, vercel etc. Notice
+          how they implement things into production
+        </Para>
+        <Para className="mb-6">
+          3. Create Id on everything like Pinterest, Dribble, Behance, Substack
+          everything and start looking at people's work before you start yours
+          to get an inpiration and also to get that taste in you. You can also
+          start sharing your work on these platforms to get feedback from the
+          community.
+        </Para>
+
+        <Para className="mb-8">
+          So now you know how to study and develop the taste in you right?
+        </Para>
+
+        <Heading>Verdict</Heading>
+
+        <Para>
+          Design Engineering is growing rapidly and you also join the wave if
+          you can master a bit of taste because always remember we as design
+          engineer exist because we got that special taste which comes from a
+          lot of practise and learning. So make sure you do your homework.
+        </Para>
+        <Para>
+          If you're wondering this is the end, no it isn't it's just that I'm
+          tired of typing right now and this blog is alredy streched enough so
+          probably I'll continue in the next one.
+        </Para>
       </Container>
 
       <Footer />

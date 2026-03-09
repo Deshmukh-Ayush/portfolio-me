@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import AnimatedGraphic from "./AnimatedGraphic";
+import AnimatedGraphic from "../../../components/examples/AnimatedGraphic";
 
 export default function TestingCompsPage() {
   return (

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "motion/react";
 import { TextMorph } from "torph/react";
 
 export const ButtonExample = () => {
@@ -19,7 +18,7 @@ export const ButtonExample = () => {
     setButton2State((prev) => (prev + 1) % button2States.length);
   };
   return (
-    <div className="relative mb-6 h-60 w-168 rounded-2xl border border-neutral-400">
+    <div className="relative mb-6 h-60 w-2xl rounded-2xl border border-neutral-400">
       <button
         onClick={handleButton1Click}
         className="absolute top-1/2 left-2/5 -translate-x-1/2 -translate-y-1/2 rounded-md border px-4 py-1"
