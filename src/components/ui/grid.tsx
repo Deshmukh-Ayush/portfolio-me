@@ -81,14 +81,14 @@ export const Grid = () => {
             I write too!!!
           </h2>
           <GridItem
+            link="Design Engineering"
+            href="/writing/the-rise-of-design-engineering"
+            p="The rise of design engineering"
+          />
+          <GridItem
             link="Demystifying next/image"
             href="/writing/everything-you-know-about-next-image-is-wrong"
             p="Disecting next/image"
-          />
-          <GridItem
-            link="Micro-Interactions"
-            href="/writing/micro-interactions"
-            p="Dive into the latest trendy web designs..."
           />
         </div>
       </motion.div>

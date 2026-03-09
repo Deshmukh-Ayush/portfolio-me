@@ -20,6 +20,11 @@ const newsReader = Newsreader({
 export default function BlogsPage() {
   const blogs = [
     {
+      href: "/writing/the-rise-of-design-engineering",
+      date: "Mar 09, 2026",
+      title: "The Rise of Design Engineering",
+    },
+    {
       href: "/writing/everything-you-know-about-next-image-is-wrong",
       date: "Nov 13, 2025",
       title: "Everything You Think You Know About next/image Is Wrong!",
