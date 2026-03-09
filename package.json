@@ -28,7 +28,8 @@
     "react-use-measure": "^2.1.7",
     "tailwind-merge": "^3.3.1",
     "torph": "^0.0.5",
-    "use-sound": "^5.0.0"
+    "use-sound": "^5.0.0",
+    "web-haptics": "^0.0.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
