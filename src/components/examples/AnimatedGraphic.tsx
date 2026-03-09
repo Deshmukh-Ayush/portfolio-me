@@ -82,12 +82,10 @@ export default function AnimatedGraphic() {
 
   return (
     <motion.svg
-      width="291"
-      height="332"
       viewBox="0 0 291 332"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="cursor-pointer"
+      className="w-full h-auto max-w-[250px] md:max-w-[291px] cursor-pointer mx-auto"
       onMouseEnter={shuffle}
       onMouseLeave={reset}
       onTap={shuffle}
