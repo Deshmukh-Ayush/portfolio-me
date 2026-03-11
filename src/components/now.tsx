@@ -57,15 +57,15 @@ export const Now = () => {
       <Para className="mt-4">
         I like to work a lot, Nowadays I am writing too and creating designs too
         I don&apos;t feel the need of creating behance profiles etc since my
-        work will be sooner be live on Cloff UI.
+        work will be sooner be live on Cloff UI and I'm posting on X too.
       </Para>
       <Para className="mt-4">
         Currently reading{" "}
         <Underline
-          href="https://www.amazon.in/Design-Everyday-Things-Don-Norman/dp/0465050654"
+          href="https://www.amazon.in/Steal-Like-Artist-Austin-Kleon/dp/0761169253?s=bazaar"
           className={`${newsReader.className} text-lg underline underline-offset-8`}
         >
-          Don't Make Me Think by Steve Krug.
+          Steal Like An Artist by Austin Kleon.
         </Underline>
       </Para>
     </div>

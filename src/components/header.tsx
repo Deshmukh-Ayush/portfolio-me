@@ -31,7 +31,7 @@ export const Header = ({ className }: { className?: string }) => {
           </span>
           , making the digital experience aesthetically pleasing. <br />
           <Underline href="/" className="underline underline-offset-5">
-            Building Cloff UI
+            Building Scrunity AI
           </Underline>{" "}
           and Co-Founder and CTO of{" "}
           <Underline href="/" className="underline underline-offset-5">

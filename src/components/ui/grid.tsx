@@ -41,9 +41,15 @@ export const Grid = () => {
             Building
           </h2>
           <GridItem
-            link="Cloff UI"
-            href="https://ui.cloffstudio.com"
-            p="Free Copy Paste React Components"
+            link="Scrunity AI"
+            href="https://scrunity.com"
+            p="AI Canvas to brainstorm, and clarify your ideas."
+            target="_blank"
+          />
+          <GridItem
+            link="Craft"
+            href="/craft"
+            p="I like to craft things and steal designs."
             target="_blank"
           />
         </div>
