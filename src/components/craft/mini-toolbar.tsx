@@ -44,7 +44,7 @@ export const MiniToolbar = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             layoutId="btn"
-            className="absolute z-10 flex h-50 w-70 flex-col items-center rounded-xl border border-neutral-300 bg-neutral-800 shadow-2xl"
+            className="absolute z-10 flex h-50 w-70 flex-col items-center rounded-xl border border-neutral-300 bg-neutral-800"
           >
             <div className="flex h-10 w-full items-center justify-between rounded-t-xl bg-neutral-800 px-3">
               <motion.h2 layoutId="btn-text" className="text-white">
