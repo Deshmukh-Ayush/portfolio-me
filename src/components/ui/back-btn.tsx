@@ -20,7 +20,7 @@ export const BackBtn = ({
         ])
       }
       className={cn(
-        "fixed z-50 flex items-center justify-center rounded-full border-t border-r border-neutral-500 bg-white/40 p-2 backdrop-blur-sm transition-all duration-200 hover:scale-105 hover:bg-white/60 dark:border-neutral-800 dark:bg-neutral-900/40 dark:hover:bg-neutral-900/60",
+        "fixed z-50 flex items-center justify-center rounded-full bg-white/40 p-2 shadow-[1px_-1px_1px_1px_#e2e8f0] backdrop-blur-sm transition-all duration-200 hover:scale-105 hover:bg-white/60 dark:bg-neutral-900/40 dark:shadow-[1px_-1px_1px_1px_#404040]",
         "top-4 left-4 sm:top-8 sm:left-8 md:top-16 md:left-16 lg:top-20 lg:left-30",
         "h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12",
         "active:scale-98",

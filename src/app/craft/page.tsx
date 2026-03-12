@@ -25,7 +25,7 @@ export default function CraftPage() {
         <Heading className="text-sm md:text-xl">Craft</Heading>
         <MiniToolbarShowcase />
         {/* 2nd */}
-        {/* <BlocksInteractionShowcase /> */}
+        <BlocksInteractionShowcase />
       </Container>
       {/* <Footer className="fixed bottom-0 z-9" /> */}
     </div>

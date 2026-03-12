@@ -6,7 +6,7 @@ import { Drawer } from "vaul";
 export const MiniToolbarShowcase = () => {
   return (
     <div className="w-full max-w-2xl px-4 sm:px-0">
-      <div className="relative mt-10 mb-4 flex h-48 w-full items-center justify-center rounded-2xl border border-neutral-400 sm:h-64 md:h-100">
+      <div className="relative mt-10 mb-4 flex h-48 w-full items-center justify-center rounded-2xl shadow-[0px_0px_1px_1px_#e2e8f0] sm:h-64 md:h-100 dark:shadow-[0px_0px_1px_1px_#404040]">
         <MiniToolbar />
       </div>
       <div className="flex items-center justify-between">
@@ -15,7 +15,7 @@ export const MiniToolbarShowcase = () => {
         </Heading>
 
         <Drawer.Root>
-          <Drawer.Trigger className="relative shrink-0 cursor-pointer font-medium text-neutral-700 underline">
+          <Drawer.Trigger className="relative shrink-0 cursor-pointer font-medium text-neutral-700 dark:text-neutral-300 dark:underline">
             Journey
           </Drawer.Trigger>
           <Drawer.Portal>
