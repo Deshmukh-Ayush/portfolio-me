@@ -6,12 +6,12 @@ import { Drawer } from "vaul";
 
 export const BlocksInteractionShowcase = () => {
   return (
-    <div>
-      <div className="relative mt-10 mb-4 flex h-100 w-2xl items-center justify-center rounded-2xl shadow-[0px_0px_1px_1px_#e2e8f0] dark:shadow-[0px_0px_1px_1px_#404040]">
+    <div className="w-full max-w-2xl px-4 sm:px-0">
+      <div className="relative mt-10 mb-4 flex h-72 w-full items-center justify-center rounded-2xl shadow-[0px_0px_1px_1px_#e2e8f0] sm:h-80 md:h-100 dark:shadow-[0px_0px_1px_1px_#404040]">
         <AnimatedGraphic />
       </div>
-      <div className="flex items-center justify-between pr-4">
-        <Heading className="text-lg">Interactive Blocks Interaction.</Heading>
+      <div className="flex items-center justify-between">
+        <Heading className="text-base sm:text-lg dark:text-neutral-200">Interactive Blocks Interaction.</Heading>
         <Drawer.Root>
           <Drawer.Trigger className="relative shrink-0 cursor-pointer font-medium text-neutral-700 dark:text-neutral-300 dark:underline">
             Journey
