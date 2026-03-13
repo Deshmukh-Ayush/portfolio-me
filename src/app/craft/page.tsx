@@ -2,6 +2,7 @@
 
 import Container from "@/components/container";
 import { BlocksInteractionShowcase } from "@/components/craft/showcase/blocks-illustration";
+import { CalendarWidgetShowcase } from "@/components/craft/showcase/calendar-widget-showcase";
 import { MiniToolbarShowcase } from "@/components/craft/showcase/mini-toolbar";
 import { BackBtn } from "@/components/ui/back-btn";
 import { Heading } from "@/components/ui/heading";
@@ -19,6 +20,8 @@ export default function CraftPage() {
         <MiniToolbarShowcase />
         {/* 2nd */}
         <BlocksInteractionShowcase />
+        {/* 3rd */}
+        <CalendarWidgetShowcase />
       </Container>
     </div>
   );

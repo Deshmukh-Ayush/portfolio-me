@@ -28,7 +28,7 @@ const H = 220;
 const DOT_RADIUS = 14;
 const MAGNET_RANGE = 60;
 const MAGNET_INTENSITY = 0.55;
-const SPRING_CONFIG = { stiffness: 26.7, damping: 4.1, mass: 0.2 };
+const SPRING_CONFIG = { stiffness: 120, damping: 14, mass: 0.4 };
 
 type CaptchaState = "idle" | "loading" | "challenge" | "verifying" | "success" | "error";
 
@@ -45,7 +45,7 @@ function MagneticDot({
   wrongFlash,
   dragging,
   cursorRef,
-  onOffsetChange,
+  offsetsRef,
 }: {
   dot: Dot;
   isDone: boolean;
@@ -56,20 +56,23 @@ function MagneticDot({
   wrongFlash: boolean;
   dragging: boolean;
   cursorRef: React.RefObject<{ x: number; y: number } | null>;
-  onOffsetChange: (id: number, dx: number, dy: number) => void;
+  offsetsRef: React.RefObject<Record<number, { dx: number; dy: number }>>;
 }) {
   const dx = useMotionValue(0);
   const dy = useMotionValue(0);
   const springX = useSpring(dx, SPRING_CONFIG);
   const springY = useSpring(dy, SPRING_CONFIG);
 
-  // Bubble live spring values up so the parent can route the drag line
-  // to the visually displaced dot position
+  // Write live spring values into the shared ref (no React re-render)
   useEffect(() => {
-    const unsubX = springX.on("change", (x) => onOffsetChange(dot.id, x, springY.get()));
-    const unsubY = springY.on("change", (y) => onOffsetChange(dot.id, springX.get(), y));
+    const unsubX = springX.on("change", (latestX) => {
+      if (offsetsRef.current) offsetsRef.current[dot.id] = { dx: latestX, dy: springY.get() };
+    });
+    const unsubY = springY.on("change", (latestY) => {
+      if (offsetsRef.current) offsetsRef.current[dot.id] = { dx: springX.get(), dy: latestY };
+    });
     return () => { unsubX(); unsubY(); };
-  }, [dot.id, springX, springY, onOffsetChange]);
+  }, [dot.id, springX, springY, offsetsRef]);
 
   // rAF loop: mirrors the reference's mousemove listener but reads from a ref
   // so we don't need to re-register on every cursor change
@@ -164,8 +167,8 @@ export default function PlaygroundPage() {
   const [cursor, setCursor] = useState<{ x: number; y: number } | null>(null);
   const [wrongFlash, setWrongFlash] = useState(false);
   const [isOnCanvas, setIsOnCanvas] = useState(false);
-  // Live spring offsets reported back from each MagneticDot
-  const [dotOffsets, setDotOffsets] = useState<Record<number, { dx: number; dy: number }>>({});
+  // Live spring offsets – stored in a ref to avoid per-frame re-renders
+  const dotOffsetsRef = useRef<Record<number, { dx: number; dy: number }>>({});
 
   const svgRef = useRef<SVGSVGElement>(null);
   // Ref so the rAF loop in MagneticDot always reads the freshest cursor without
@@ -175,9 +178,8 @@ export default function PlaygroundPage() {
   const total = dots.length;
   const nextExpectedId = connected.length + 1;
 
-  const handleOffsetChange = useCallback((id: number, dx: number, dy: number) => {
-    setDotOffsets(prev => ({ ...prev, [id]: { dx, dy } }));
-  }, []);
+  // Read offsets from the ref (always current, never triggers re-render)
+  const getOffset = useCallback((id: number) => dotOffsetsRef.current[id] ?? { dx: 0, dy: 0 }, []);
 
   const reset = (newDots?: Dot[]) => {
     if (newDots) setDots(newDots);
@@ -187,7 +189,7 @@ export default function PlaygroundPage() {
     setFromDot(null);
     setCursor(null);
     cursorRef.current = null;
-    setDotOffsets({});
+    dotOffsetsRef.current = {};
   };
 
   const handleCheckboxClick = () => {
@@ -209,9 +211,9 @@ export default function PlaygroundPage() {
   // Hit-test against visually displaced positions
   const getDotAt = (x: number, y: number): Dot | null =>
     dots.find((d) => {
-      const off = dotOffsets[d.id];
-      const cx = d.x + (off?.dx ?? 0);
-      const cy = d.y + (off?.dy ?? 0);
+      const off = getOffset(d.id);
+      const cx = d.x + off.dx;
+      const cy = d.y + off.dy;
       return Math.hypot(cx - x, cy - y) < DOT_RADIUS;
     }) ?? null;
 
@@ -231,7 +233,7 @@ export default function PlaygroundPage() {
       setWrongFlash(true);
       setTimeout(() => setWrongFlash(false), 400);
     }
-  }, [connected, completed, dots, dotOffsets]);
+  }, [connected, completed, dots, getOffset]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent | React.TouchEvent) => {
     if (!dragging) return;
@@ -254,9 +256,9 @@ export default function PlaygroundPage() {
     // Resolve target using displaced positions (generous radius since dot drifted toward us)
     const resolved = dots.find((d) => {
       if (d.id !== expectedTarget) return false;
-      const off = dotOffsets[d.id];
-      const cx = d.x + (off?.dx ?? 0);
-      const cy = d.y + (off?.dy ?? 0);
+      const off = getOffset(d.id);
+      const cx = d.x + off.dx;
+      const cy = d.y + off.dy;
       return Math.hypot(cx - pt.x, cy - pt.y) < DOT_RADIUS + 8;
     }) ?? null;
 
@@ -272,7 +274,7 @@ export default function PlaygroundPage() {
       setTimeout(() => setWrongFlash(false), 400);
     }
     setFromDot(null);
-  }, [dragging, fromDot, connected, dots, total, dotOffsets]);
+  }, [dragging, fromDot, connected, dots, total, getOffset]);
 
   const handleVerify = () => {
     if (!completed) {
@@ -286,26 +288,17 @@ export default function PlaygroundPage() {
     setTimeout(() => setCaptchaState("success"), 1000);
   };
 
-  // Build committed lines using displaced positions
+  // Build committed lines from base positions (dots snap back after connection
+  // so offsets are ~0 for already-connected dots)
   const lines: Line[] = [];
   for (let i = 1; i < connected.length; i++) {
     const a = dots.find((d) => d.id === connected[i - 1]);
     const b = dots.find((d) => d.id === connected[i]);
-    if (a && b) {
-      const offA = dotOffsets[a.id];
-      const offB = dotOffsets[b.id];
-      lines.push({
-        x1: a.x + (offA?.dx ?? 0), y1: a.y + (offA?.dy ?? 0),
-        x2: b.x + (offB?.dx ?? 0), y2: b.y + (offB?.dy ?? 0),
-      });
-    }
+    if (a && b) lines.push({ x1: a.x, y1: a.y, x2: b.x, y2: b.y });
   }
 
-  // Drag line starts from the from-dot's displaced position
-  const fromDotDisplaced = fromDot ? {
-    x: fromDot.x + (dotOffsets[fromDot.id]?.dx ?? 0),
-    y: fromDot.y + (dotOffsets[fromDot.id]?.dy ?? 0),
-  } : null;
+  // Drag line starts from the from-dot's base position
+  const fromDotDisplaced = fromDot ? { x: fromDot.x, y: fromDot.y } : null;
 
   const isExpanded = captchaState === "challenge" || captchaState === "verifying" || captchaState === "error";
   const pencilCursor = `url('/pencil.png') 0 48, crosshair`;
@@ -455,7 +448,7 @@ export default function PlaygroundPage() {
                             wrongFlash={wrongFlash}
                             dragging={dragging}
                             cursorRef={cursorRef}
-                            onOffsetChange={handleOffsetChange}
+                            offsetsRef={dotOffsetsRef}
                           />
                         );
                       })}
