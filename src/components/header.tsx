@@ -30,11 +30,17 @@ export const Header = ({ className }: { className?: string }) => {
             Designing for the community
           </span>
           , making the digital experience aesthetically pleasing. <br />
-          <Underline href="/" className="underline underline-offset-5">
+          <Underline
+            href="https://www.scrunity.com"
+            className="underline underline-offset-5"
+          >
             Building Scrunity AI
           </Underline>{" "}
           and Co-Founder and CTO of{" "}
-          <Underline href="/" className="underline underline-offset-5">
+          <Underline
+            href="https://www.cloffstudio.com"
+            className="underline underline-offset-5"
+          >
             Cloff Studio
           </Underline>
           .
