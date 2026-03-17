@@ -1,12 +1,13 @@
 import React from "react";
 import { Heading } from "@/components/ui/heading";
 import { Drawer } from "vaul";
+import { Toolbar } from "../toolbar";
 
 export const ToolbarShowcase = () => {
   return (
     <div className="w-full max-w-2xl px-4 sm:px-0">
       <div className="relative mt-10 mb-4 flex h-48 w-full items-center justify-center rounded-2xl shadow-[0px_0px_1px_1px_#e2e8f0] sm:h-64 md:h-100 dark:shadow-[0px_0px_1px_1px_#404040]">
-        {/* / */}
+        <Toolbar />
       </div>
       <div className="flex items-center justify-between">
         <Heading className="text-base sm:text-lg dark:text-neutral-200">

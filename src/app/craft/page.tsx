@@ -4,6 +4,7 @@ import Container from "@/components/container";
 import { BlocksInteractionShowcase } from "@/components/craft/showcase/blocks-illustration";
 import { CalendarWidgetShowcase } from "@/components/craft/showcase/calendar-widget-showcase";
 import { MiniToolbarShowcase } from "@/components/craft/showcase/mini-toolbar";
+import { ToolbarShowcase } from "@/components/craft/showcase/toolbar-showcase";
 import { BackBtn } from "@/components/ui/back-btn";
 import { Heading } from "@/components/ui/heading";
 import { MusicToggleButton } from "@/components/ui/special-effects/music";
@@ -22,6 +23,8 @@ export default function CraftPage() {
         <BlocksInteractionShowcase />
         {/* 3rd */}
         <CalendarWidgetShowcase />
+        {/* 4th */}
+        <ToolbarShowcase />
       </Container>
     </div>
   );
