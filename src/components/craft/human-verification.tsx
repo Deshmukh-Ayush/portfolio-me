@@ -1,0 +1,724 @@
+"use client";
+
+import ThemeToggle from "@/components/ui/theme-toggle";
+import Image from "next/image";
+import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+} from "motion/react";
+import { Calligraph } from "calligraph";
+
+interface Dot {
+  x: number;
+  y: number;
+  id: number;
+}
+interface Line {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+}
+
+function generateDots(count: number, w: number, h: number): Dot[] {
+  const pad = 28;
+  const dots: Dot[] = [];
+  let attempts = 0;
+  while (dots.length < count && attempts < 1000) {
+    attempts++;
+    const x = pad + Math.random() * (w - pad * 2);
+    const y = pad + Math.random() * (h - pad * 2);
+    if (!dots.some((d) => Math.hypot(d.x - x, d.y - y) < 50))
+      dots.push({ x, y, id: dots.length + 1 });
+  }
+  return dots;
+}
+
+const W = 320;
+const H = 220;
+const DOT_RADIUS = 14;
+const MAGNET_RANGE = 60;
+const MAGNET_INTENSITY = 0.55;
+const SPRING_CONFIG = { stiffness: 120, damping: 14, mass: 0.4 };
+
+const EASE_OUT = [0.23, 1, 0.32, 1] as const;
+
+type CaptchaState =
+  | "idle"
+  | "loading"
+  | "challenge"
+  | "verifying"
+  | "success"
+  | "error";
+
+function MagneticDot({
+  dot,
+  isDone,
+  isNext,
+  isLast,
+  isTarget,
+  completed,
+  wrongFlash,
+  dragging,
+  cursorRef,
+  offsetsRef,
+}: {
+  dot: Dot;
+  isDone: boolean;
+  isNext: boolean;
+  isLast: boolean;
+  isTarget: boolean;
+  completed: boolean;
+  wrongFlash: boolean;
+  dragging: boolean;
+  cursorRef: React.RefObject<{ x: number; y: number } | null>;
+  offsetsRef: React.RefObject<Record<number, { dx: number; dy: number }>>;
+}) {
+  const dx = useMotionValue(0);
+  const dy = useMotionValue(0);
+  const springX = useSpring(dx, SPRING_CONFIG);
+  const springY = useSpring(dy, SPRING_CONFIG);
+
+  const shakeX = useMotionValue(0);
+  const shakeSpring = useSpring(shakeX, {
+    stiffness: 600,
+    damping: 10,
+    mass: 0.3,
+  });
+
+  useEffect(() => {
+    const unsubX = springX.on("change", (latestX) => {
+      if (offsetsRef.current)
+        offsetsRef.current[dot.id] = { dx: latestX, dy: springY.get() };
+    });
+    const unsubY = springY.on("change", (latestY) => {
+      if (offsetsRef.current)
+        offsetsRef.current[dot.id] = { dx: springX.get(), dy: latestY };
+    });
+    return () => {
+      unsubX();
+      unsubY();
+    };
+  }, [dot.id, springX, springY, offsetsRef]);
+
+  useEffect(() => {
+    if (!isTarget || !dragging) {
+      dx.set(0);
+      dy.set(0);
+      return;
+    }
+
+    let rafId: number;
+    const tick = () => {
+      const cursor = cursorRef.current;
+      if (cursor) {
+        const distX = cursor.x - dot.x;
+        const distY = cursor.y - dot.y;
+        const dist = Math.hypot(distX, distY);
+        if (dist <= MAGNET_RANGE) {
+          const scale = 1 - dist / MAGNET_RANGE;
+          dx.set(distX * MAGNET_INTENSITY * scale);
+          dy.set(distY * MAGNET_INTENSITY * scale);
+        } else {
+          dx.set(0);
+          dy.set(0);
+        }
+      }
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, [isTarget, dragging, dot.x, dot.y, dx, dy, cursorRef]);
+
+  useEffect(() => {
+    if (!wrongFlash || !isNext) return;
+    const seq = [-4, 4, -3, 3, -2, 2, 0];
+    let i = 0;
+    const step = () => {
+      if (i < seq.length) {
+        shakeX.set(seq[i]);
+        i++;
+        setTimeout(step, 35);
+      }
+    };
+    step();
+  }, [wrongFlash, isNext, shakeX]);
+
+  const strokeColor = isDone
+    ? completed
+      ? "#15803d"
+      : "#1d4ed8"
+    : wrongFlash && isNext
+      ? "#dc2626"
+      : isTarget && dragging
+        ? "#1d4ed8"
+        : isNext
+          ? "#6b7280"
+          : "#d1d5db";
+
+  const fillColor = isDone
+    ? completed
+      ? "#dcfce7"
+      : "#dbeafe"
+    : isTarget && dragging
+      ? "#eff6ff"
+      : "#fff";
+
+  const textFill = isDone
+    ? completed
+      ? "#15803d"
+      : "#1d4ed8"
+    : isTarget && dragging
+      ? "#1d4ed8"
+      : "#6b7280";
+
+  const strokeWidth = isTarget && dragging ? 2 : isNext || isLast ? 1.5 : 1;
+
+  return (
+    <motion.g style={{ x: springX, y: springY }}>
+      <motion.g style={{ x: shakeSpring }}>
+        {isTarget && dragging && (
+          <circle
+            cx={dot.x}
+            cy={dot.y}
+            r={11}
+            fill="none"
+            stroke="#1d4ed8"
+            strokeWidth={1.5}
+            opacity={0.45}
+            className="magnet-ring"
+          />
+        )}
+        <circle
+          cx={dot.x}
+          cy={dot.y}
+          r={11}
+          fill={fillColor}
+          stroke={strokeColor}
+          strokeWidth={strokeWidth}
+          filter="url(#dot-texture)"
+          style={{
+            cursor: "inherit",
+            transition: "fill 200ms ease, stroke 200ms ease",
+          }}
+        />
+        <text
+          x={dot.x}
+          y={dot.y + 4}
+          textAnchor="middle"
+          fontSize={9}
+          fontFamily="monospace"
+          fontWeight="600"
+          fill={textFill}
+          style={{ userSelect: "none", pointerEvents: "none" }}
+        >
+          {dot.id}
+        </text>
+      </motion.g>
+    </motion.g>
+  );
+}
+
+export const HumanVerification = () => {
+  const [captchaState, setCaptchaState] = useState<CaptchaState>("idle");
+  const [dots, setDots] = useState<Dot[]>(() =>
+    generateDots(Math.floor(Math.random() * 3) + 6, W, H),
+  );
+  const [connected, setConnected] = useState<number[]>([]);
+  const [completed, setCompleted] = useState(false);
+  const [dragging, setDragging] = useState(false);
+  const [fromDot, setFromDot] = useState<Dot | null>(null);
+  const [cursor, setCursor] = useState<{ x: number; y: number } | null>(null);
+  const [wrongFlash, setWrongFlash] = useState(false);
+  const [isOnCanvas, setIsOnCanvas] = useState(false);
+  const dotOffsetsRef = useRef<Record<number, { dx: number; dy: number }>>({});
+
+  const svgRef = useRef<SVGSVGElement>(null);
+  const cursorRef = useRef<{ x: number; y: number } | null>(null);
+
+  const total = dots.length;
+  const nextExpectedId = connected.length + 1;
+
+  const getOffset = useCallback(
+    (id: number) => dotOffsetsRef.current[id] ?? { dx: 0, dy: 0 },
+    [],
+  );
+
+  const reset = (newDots?: Dot[]) => {
+    if (newDots) setDots(newDots);
+    setConnected([]);
+    setCompleted(false);
+    setDragging(false);
+    setFromDot(null);
+    setCursor(null);
+    cursorRef.current = null;
+    dotOffsetsRef.current = {};
+  };
+
+  const handleCheckboxClick = () => {
+    if (captchaState !== "idle" && captchaState !== "error") return;
+    setCaptchaState("loading");
+    reset(generateDots(Math.floor(Math.random() * 3) + 6, W, H));
+    setTimeout(() => setCaptchaState("challenge"), 700);
+  };
+
+  const getSVGPoint = (e: React.MouseEvent | React.TouchEvent) => {
+    const svg = svgRef.current;
+    if (!svg) return { x: 0, y: 0 };
+    const rect = svg.getBoundingClientRect();
+    const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
+    const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
+    return { x: clientX - rect.left, y: clientY - rect.top };
+  };
+
+  const getDotAt = (x: number, y: number): Dot | null =>
+    dots.find((d) => {
+      const off = getOffset(d.id);
+      const cx = d.x + off.dx;
+      const cy = d.y + off.dy;
+      return Math.hypot(cx - x, cy - y) < DOT_RADIUS;
+    }) ?? null;
+
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent | React.TouchEvent) => {
+      if (completed) return;
+      const pt = getSVGPoint(e);
+      const dot = getDotAt(pt.x, pt.y);
+      if (!dot) return;
+      const lastConnected = connected[connected.length - 1];
+      const nextExpected = connected.length + 1;
+      if (dot.id === lastConnected || dot.id === nextExpected) {
+        setFromDot(dot);
+        setDragging(true);
+        setCursor(pt);
+        cursorRef.current = pt;
+      } else {
+        setWrongFlash(true);
+        setTimeout(() => setWrongFlash(false), 400);
+      }
+    },
+    [connected, completed, dots, getOffset],
+  );
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent | React.TouchEvent) => {
+      if (!dragging) return;
+      const pt = getSVGPoint(e);
+      setCursor(pt);
+      cursorRef.current = pt;
+    },
+    [dragging],
+  );
+
+  const handleMouseUp = useCallback(
+    (e: React.MouseEvent | React.TouchEvent) => {
+      if (!dragging || !fromDot) return;
+      setDragging(false);
+      setCursor(null);
+      cursorRef.current = null;
+
+      const pt = getSVGPoint(e);
+      const lastConnected = connected[connected.length - 1];
+      const nextExpected = connected.length + 1;
+      const expectedTarget =
+        fromDot.id === lastConnected ? nextExpected : nextExpected + 1;
+
+      const resolved =
+        dots.find((d) => {
+          if (d.id !== expectedTarget) return false;
+          const off = getOffset(d.id);
+          const cx = d.x + off.dx;
+          const cy = d.y + off.dy;
+          return Math.hypot(cx - pt.x, cy - pt.y) < DOT_RADIUS + 8;
+        }) ?? null;
+
+      if (resolved) {
+        const newIds =
+          fromDot.id === lastConnected
+            ? [...connected, resolved.id]
+            : [...connected, fromDot.id, resolved.id];
+        const deduped = newIds.filter((v, i, a) => a.indexOf(v) === i);
+        setConnected(deduped);
+        if (deduped.length === total) setCompleted(true);
+      } else {
+        setWrongFlash(true);
+        setTimeout(() => setWrongFlash(false), 400);
+      }
+      setFromDot(null);
+    },
+    [dragging, fromDot, connected, dots, total, getOffset],
+  );
+
+  const handleVerify = () => {
+    if (!completed) {
+      setWrongFlash(true);
+      setTimeout(() => setWrongFlash(false), 400);
+      setCaptchaState("error");
+      setTimeout(() => setCaptchaState("challenge"), 800);
+      return;
+    }
+    setCaptchaState("verifying");
+    setTimeout(() => setCaptchaState("success"), 1000);
+  };
+
+  const lines: Line[] = [];
+  for (let i = 1; i < connected.length; i++) {
+    const a = dots.find((d) => d.id === connected[i - 1]);
+    const b = dots.find((d) => d.id === connected[i]);
+    if (a && b) lines.push({ x1: a.x, y1: a.y, x2: b.x, y2: b.y });
+  }
+
+  const fromDotDisplaced = fromDot ? { x: fromDot.x, y: fromDot.y } : null;
+
+  const isExpanded =
+    captchaState === "challenge" ||
+    captchaState === "verifying" ||
+    captchaState === "error";
+  const isSpinning = captchaState === "loading" || captchaState === "verifying";
+  const pencilCursor = `url('/pencil.png') 0 48, crosshair`;
+
+  return (
+    <div className="flex min-h-screen w-full items-center justify-center bg-gray-50 dark:bg-neutral-900">
+      <ThemeToggle className="fixed right-18 bottom-2 hidden cursor-pointer md:block" />
+
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spinner { animation: spin 0.7s linear infinite; }
+        @keyframes pop-in {
+          0%   { transform: scale(0.85); opacity: 0; }
+          65%  { transform: scale(1.04); }
+          100% { transform: scale(1); opacity: 1; }
+        }
+        .pop-in { animation: pop-in 0.3s cubic-bezier(0.23,1,0.32,1) forwards; }
+        .pencil-stroke { filter: url(#pencil-texture); }
+        @keyframes magnet-pulse {
+          0%   { r: 11; opacity: 0.5; }
+          60%  { r: 19; opacity: 0.2; }
+          100% { r: 23; opacity: 0; }
+        }
+        .magnet-ring { animation: magnet-pulse 0.6s ease-out infinite; }
+        line { transition: stroke 250ms ease; }
+      `}</style>
+
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-fit overflow-hidden rounded-xl bg-gray-100 shadow-[0px_0.2px_0.2px_0.2px_#e5e5e5]">
+          <div className="flex items-center justify-between gap-4 px-3 py-2">
+            <div className="flex items-center gap-3">
+              {/* Checkbox / status indicator */}
+              <div
+                className="flex h-6 w-6 flex-shrink-0 cursor-pointer items-center justify-center"
+                onClick={handleCheckboxClick}
+              >
+                {captchaState === "idle" && (
+                  <div className="h-6 w-6 rounded-md border border-neutral-400 bg-white transition-colors hover:border-neutral-600" />
+                )}
+                {/* Spinner ONLY during loading and verifying */}
+                {isSpinning && (
+                  <svg
+                    className="spinner h-5 w-5 text-neutral-400"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="9"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeDasharray="40"
+                      strokeDashoffset="10"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                )}
+                {/* Static neutral icon during challenge / error — not spinning */}
+                {(captchaState === "challenge" || captchaState === "error") && (
+                  <svg
+                    className="h-5 w-5 text-neutral-300"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="9"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeDasharray="40"
+                      strokeDashoffset="10"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                )}
+                {captchaState === "success" && (
+                  <div className="pop-in flex h-6 w-6 items-center justify-center rounded-md bg-neutral-950">
+                    <svg
+                      className="h-4 w-4 text-white"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                    >
+                      <path
+                        d="M3 8l3.5 3.5L13 5"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                )}
+              </div>
+              <p className="text-sm whitespace-nowrap text-neutral-700 select-none dark:text-neutral-300">
+                {captchaState === "success"
+                  ? "You're human!"
+                  : "I'm not a robot"}
+              </p>
+            </div>
+            <Image
+              src="/svgs/recaptcha.svg"
+              alt="recaptcha"
+              height={20}
+              width={20}
+            />
+          </div>
+
+          {/* Challenge panel — no blur on the reveal, content fades in separately */}
+          <AnimatePresence initial={false}>
+            {isExpanded && (
+              <motion.div
+                key="challenge"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{
+                  height: {
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 40,
+                    mass: 1,
+                  },
+                  opacity: { duration: 0.18, ease: EASE_OUT },
+                }}
+                style={{ overflow: "hidden" }}
+              >
+                {/* Content fades + rises independently from the height animation */}
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 3 }}
+                  transition={{ duration: 0.2, ease: EASE_OUT, delay: 0.05 }}
+                >
+                  <div className="border-t border-gray-200">
+                    <div className="px-3 pt-2 pb-1">
+                      <p className="font-mono text-xs text-gray-400">
+                        Connect dots 1 → {total} in order to verify
+                      </p>
+                    </div>
+
+                    <div
+                      className="relative mx-3 overflow-hidden rounded-lg"
+                      style={{
+                        width: W,
+                        height: H,
+                        background: "#f9fafb",
+                        border: "1px solid #e5e7eb",
+                        cursor: isOnCanvas ? pencilCursor : "default",
+                      }}
+                      onMouseEnter={() => setIsOnCanvas(true)}
+                      onMouseLeave={() => setIsOnCanvas(false)}
+                    >
+                      <svg
+                        ref={svgRef}
+                        width={W}
+                        height={H}
+                        className="absolute inset-0 select-none"
+                        style={{
+                          touchAction: "none",
+                          cursor: "inherit",
+                          overflow: "visible",
+                        }}
+                        onMouseDown={handleMouseDown}
+                        onMouseMove={handleMouseMove}
+                        onMouseUp={handleMouseUp}
+                        onMouseLeave={(e) => {
+                          setIsOnCanvas(false);
+                          handleMouseUp(e);
+                        }}
+                        onTouchStart={handleMouseDown}
+                        onTouchMove={handleMouseMove}
+                        onTouchEnd={handleMouseUp}
+                      >
+                        <defs>
+                          <filter
+                            id="pencil-texture"
+                            x="-5%"
+                            y="-5%"
+                            width="110%"
+                            height="110%"
+                          >
+                            <feTurbulence
+                              type="fractalNoise"
+                              baseFrequency="0.9"
+                              numOctaves="4"
+                              stitchTiles="stitch"
+                              result="noise"
+                            />
+                            <feDisplacementMap
+                              in="SourceGraphic"
+                              in2="noise"
+                              scale="1.8"
+                              xChannelSelector="R"
+                              yChannelSelector="G"
+                              result="displaced"
+                            />
+                            <feComposite
+                              in="displaced"
+                              in2="SourceGraphic"
+                              operator="in"
+                            />
+                          </filter>
+                          <filter
+                            id="dot-texture"
+                            x="-10%"
+                            y="-10%"
+                            width="120%"
+                            height="120%"
+                          >
+                            <feTurbulence
+                              type="fractalNoise"
+                              baseFrequency="0.65"
+                              numOctaves="3"
+                              stitchTiles="stitch"
+                              result="noise"
+                            />
+                            <feDisplacementMap
+                              in="SourceGraphic"
+                              in2="noise"
+                              scale="0.8"
+                              xChannelSelector="R"
+                              yChannelSelector="G"
+                            />
+                          </filter>
+                        </defs>
+
+                        {lines.map((l, i) => (
+                          <line
+                            key={i}
+                            x1={l.x1}
+                            y1={l.y1}
+                            x2={l.x2}
+                            y2={l.y2}
+                            stroke={completed ? "#15803d" : "#1d4ed8"}
+                            strokeWidth={2.5}
+                            strokeLinecap="round"
+                            className="pencil-stroke"
+                            opacity={0.8}
+                          />
+                        ))}
+
+                        {dragging && fromDotDisplaced && cursor && (
+                          <line
+                            x1={fromDotDisplaced.x}
+                            y1={fromDotDisplaced.y}
+                            x2={cursor.x}
+                            y2={cursor.y}
+                            stroke={wrongFlash ? "#dc2626" : "#9ca3af"}
+                            strokeWidth={1.5}
+                            strokeLinecap="round"
+                            strokeDasharray="5 3"
+                            opacity={0.5}
+                            className="pencil-stroke"
+                          />
+                        )}
+
+                        {dots.map((dot) => {
+                          const isDone = connected.includes(dot.id);
+                          const isNext =
+                            dot.id === nextExpectedId && !completed;
+                          const isLast =
+                            dot.id === connected[connected.length - 1];
+                          const isTarget =
+                            dragging && dot.id === nextExpectedId && !completed;
+
+                          return (
+                            <MagneticDot
+                              key={dot.id}
+                              dot={dot}
+                              isDone={isDone}
+                              isNext={isNext}
+                              isLast={isLast}
+                              isTarget={isTarget}
+                              completed={completed}
+                              wrongFlash={wrongFlash}
+                              dragging={dragging}
+                              cursorRef={cursorRef}
+                              offsetsRef={dotOffsetsRef}
+                            />
+                          );
+                        })}
+                      </svg>
+                    </div>
+
+                    <div className="flex items-center gap-2 px-3 py-2">
+                      <span
+                        className="flex-1 font-mono text-xs text-gray-400 tabular-nums"
+                        style={{ fontVariantNumeric: "tabular-nums" }}
+                      >
+                        {completed
+                          ? "✓ all connected"
+                          : `${connected.length} / ${total}`}
+                      </span>
+                      <button
+                        onClick={() => {
+                          reset(
+                            generateDots(
+                              Math.floor(Math.random() * 3) + 6,
+                              W,
+                              H,
+                            ),
+                          );
+                          setCaptchaState("challenge");
+                        }}
+                        className="rounded-md border border-gray-300 bg-white px-3 py-1 text-xs text-gray-600 transition-[transform,background-color] duration-150 hover:bg-gray-50 active:scale-[0.96]"
+                        style={{
+                          transition:
+                            "transform 140ms cubic-bezier(0.23,1,0.32,1), background-color 120ms ease",
+                        }}
+                      >
+                        Retry
+                      </button>
+                      <motion.button
+                        onClick={handleVerify}
+                        disabled={captchaState === "verifying"}
+                        whileTap={{ scale: 0.96 }}
+                        transition={{
+                          type: "spring",
+                          duration: 0.15,
+                          bounce: 0,
+                        }}
+                        className="rounded-md bg-gray-800 px-3 py-1 text-xs text-white hover:bg-gray-700 disabled:opacity-50"
+                        style={{
+                          transition:
+                            "background-color 120ms ease, opacity 120ms ease",
+                        }}
+                      >
+                        <Calligraph>
+                          {captchaState === "verifying"
+                            ? "Checking…"
+                            : "Verify"}
+                        </Calligraph>
+                      </motion.button>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+    </div>
+  );
+};
