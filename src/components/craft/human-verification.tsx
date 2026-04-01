@@ -381,9 +381,7 @@ export const HumanVerification = () => {
   const pencilCursor = `url('/pencil.png') 0 48, crosshair`;
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-gray-50 dark:bg-neutral-900">
-      <ThemeToggle className="fixed right-18 bottom-2 hidden cursor-pointer md:block" />
-
+    <div>
       <style>{`
         @keyframes spin { to { transform: rotate(360deg); } }
         .spinner { animation: spin 0.7s linear infinite; }
@@ -407,15 +405,13 @@ export const HumanVerification = () => {
         <div className="w-fit overflow-hidden rounded-xl bg-gray-100 shadow-[0px_0.2px_0.2px_0.2px_#e5e5e5]">
           <div className="flex items-center justify-between gap-4 px-3 py-2">
             <div className="flex items-center gap-3">
-              {/* Checkbox / status indicator */}
               <div
-                className="flex h-6 w-6 flex-shrink-0 cursor-pointer items-center justify-center"
+                className="flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center"
                 onClick={handleCheckboxClick}
               >
                 {captchaState === "idle" && (
                   <div className="h-6 w-6 rounded-md border border-neutral-400 bg-white transition-colors hover:border-neutral-600" />
                 )}
-                {/* Spinner ONLY during loading and verifying */}
                 {isSpinning && (
                   <svg
                     className="spinner h-5 w-5 text-neutral-400"
@@ -434,7 +430,6 @@ export const HumanVerification = () => {
                     />
                   </svg>
                 )}
-                {/* Static neutral icon during challenge / error — not spinning */}
                 {(captchaState === "challenge" || captchaState === "error") && (
                   <svg
                     className="h-5 w-5 text-neutral-300"
@@ -485,7 +480,6 @@ export const HumanVerification = () => {
             />
           </div>
 
-          {/* Challenge panel — no blur on the reveal, content fades in separately */}
           <AnimatePresence initial={false}>
             {isExpanded && (
               <motion.div
@@ -504,7 +498,6 @@ export const HumanVerification = () => {
                 }}
                 style={{ overflow: "hidden" }}
               >
-                {/* Content fades + rises independently from the height animation */}
                 <motion.div
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
