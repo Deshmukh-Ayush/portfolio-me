@@ -3,9 +3,71 @@
 import ThemeToggle from "@/components/ui/theme-toggle";
 import { motion, cubicBezier, AnimatePresence } from "motion/react";
 import { useState } from "react";
+import { X, ArrowLeft, FileText, Linkedin } from "lucide-react";
+import Link from "next/link";
+
+type ViewState = "closed" | "open" | "menu" | "waveform";
+
+function HoverIcon({
+  label,
+  Icon,
+  onClick,
+  href,
+}: {
+  label: string;
+  Icon: React.ElementType;
+  onClick?: () => void;
+  href?: string;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.button
+      layout
+      onClick={onClick}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      onFocus={() => setIsHovered(true)}
+      onBlur={() => setIsHovered(false)}
+      whileTap={{ scale: 0.92 }}
+      transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+      className="flex cursor-pointer items-center justify-center overflow-hidden rounded-full p-1.5 transition-colors outline-none hover:bg-neutral-800 focus-visible:bg-neutral-800"
+    >
+      <motion.div layout>
+        <Icon className="size-5 text-neutral-400 transition-colors" />
+      </motion.div>
+
+      <AnimatePresence initial={false}>
+        {isHovered && (
+          <motion.div
+            initial={{ width: 0, opacity: 0, filter: "blur(4px)" }}
+            animate={{ width: "auto", opacity: 1, filter: "blur(0px)" }}
+            exit={{ width: 0, opacity: 0, filter: "blur(4px)" }}
+            transition={{
+              width: { type: "spring", bounce: 0, duration: 0.4 },
+              opacity: { duration: 0.15, ease: "easeOut" },
+              filter: { duration: 0.15, ease: "easeOut" },
+            }}
+            className="overflow-hidden"
+          >
+            <div className="pr-1 pl-2 text-sm whitespace-nowrap text-neutral-200">
+              {href ? (
+                <Link href={href} target="_blank" rel="noopener noreferrer">
+                  {label}
+                </Link>
+              ) : (
+                label
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.button>
+  );
+}
 
 export default function PlaygroundPage() {
-  const [open, setOpen] = useState(false);
+  const [view, setView] = useState<ViewState>("closed");
 
   const iconVariants = {
     initial: { rotate: 0 },
@@ -18,94 +80,179 @@ export default function PlaygroundPage() {
     },
   };
 
-  const clickHandler = () => {
-    setOpen((prev) => !prev);
-  };
-
   return (
     <div className="relative flex min-h-screen w-full items-center justify-center bg-neutral-100 dark:bg-neutral-950">
       <ThemeToggle className="fixed right-18 bottom-2 hidden cursor-pointer md:block" />
 
       <div className="flex h-100 w-200 items-center justify-center rounded-md border border-neutral-300 bg-neutral-50 p-2 dark:border-neutral-700 dark:bg-neutral-950">
         <AnimatePresence mode="popLayout">
-          {open ? (
-            <motion.div
-              layoutId="container"
-              key="open"
-              onClick={() => setOpen(false)}
-              className="flex cursor-pointer items-center justify-between gap-0.5 rounded-full bg-neutral-950 p-2"
-            >
-              {/* AVATAR - already shared */}
-              <motion.div
-                layoutId="avatar"
-                className="flex items-center justify-center rounded-full bg-neutral-50 p-1"
-              >
-                <UserIcon className="size-10 text-neutral-400" />
-              </motion.div>
+          {(() => {
+            switch (view) {
+              case "closed":
+                return (
+                  <motion.div
+                    layoutId="container"
+                    key="closed"
+                    className="flex cursor-pointer items-center justify-between gap-0.5 rounded-full bg-neutral-950 p-1"
+                  >
+                    <motion.div
+                      layoutId="avatar"
+                      className="flex items-center justify-center rounded-full bg-neutral-50 p-1"
+                    >
+                      <UserIcon className="text-neutral-400" />
+                    </motion.div>
 
-              {/* TEXT - reveals with blur */}
-              <motion.div
-                initial={{ opacity: 0, filter: "blur(12px)" }}
-                animate={{ opacity: 1, filter: "blur(0px)" }}
-                exit={{ opacity: 0, filter: "blur(12px)" }}
-                transition={{ duration: 0.35, delay: 0.1 }}
-                className="mr-8 flex flex-col items-center justify-center px-4"
-              >
-                <p className="leading-none text-neutral-700">Hi I'm</p>
-                <p className="text-neutral-100">Ayush</p>
-              </motion.div>
-
-              <div className="flex items-center justify-center gap-3">
-                {/* WAVEFORMS BUTTON - reveals with blur (new element) */}
-                <motion.button
-                  initial={{ opacity: 0, filter: "blur(12px)" }}
-                  animate={{ opacity: 1, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, filter: "blur(12px)" }}
-                  transition={{ duration: 0.35, delay: 0.25 }}
-                  className="flex cursor-pointer items-center justify-center rounded-full bg-orange-400 p-1"
-                >
-                  <Waveforms className="text-white" />
-                </motion.button>
-
-                {/* MENU BUTTON (three dots) - now shares layoutId with the Plus button/icon */}
-                <motion.button
-                  layoutId="actionButton"
-                  className="flex cursor-pointer items-center justify-center rounded-full bg-cyan-400 p-1"
-                >
-                  <motion.div layoutId="actionIcon">
-                    <Menu className="text-white" />
+                    <motion.button
+                      layoutId="actionButton"
+                      initial="initial"
+                      whileHover="hover"
+                      onClick={() => setView("open")}
+                      className="flex cursor-pointer items-center justify-center rounded-full bg-green-500 p-1"
+                    >
+                      <motion.div variants={iconVariants} layoutId="actionIcon">
+                        <Plus className="text-white" />
+                      </motion.div>
+                    </motion.button>
                   </motion.div>
-                </motion.button>
-              </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              layoutId="container"
-              key="closed"
-              className="flex cursor-pointer items-center justify-between gap-0.5 rounded-full bg-neutral-950 p-1"
-            >
-              {/* AVATAR - already shared */}
-              <motion.div
-                layoutId="avatar"
-                className="flex items-center justify-center rounded-full bg-neutral-50 p-1"
-              >
-                <UserIcon className="text-neutral-400" />
-              </motion.div>
+                );
 
-              {/* PLUS BUTTON - now shares layoutId with the cyan Menu button */}
-              <motion.button
-                layoutId="actionButton"
-                initial="initial"
-                whileHover="hover"
-                onClick={clickHandler}
-                className="flex cursor-pointer items-center justify-center rounded-full bg-green-500 p-1"
-              >
-                <motion.div variants={iconVariants} layoutId="actionIcon">
-                  <Plus className="text-white" />
-                </motion.div>
-              </motion.button>
-            </motion.div>
-          )}
+              case "open":
+                return (
+                  <motion.div
+                    layoutId="container"
+                    key="open"
+                    className="flex items-center justify-between gap-0.5 rounded-full bg-neutral-950 p-2"
+                  >
+                    <motion.div
+                      layoutId="avatar"
+                      onClick={() => setView("closed")}
+                      className="flex cursor-pointer items-center justify-center rounded-full bg-neutral-50 p-1"
+                    >
+                      <UserIcon className="size-10 text-neutral-400" />
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ opacity: 0, filter: "blur(12px)" }}
+                      animate={{ opacity: 1, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, filter: "blur(12px)" }}
+                      transition={{ duration: 0.35, delay: 0.1 }}
+                      className="mr-8 flex flex-col items-center justify-center px-4"
+                    >
+                      <p className="leading-none text-neutral-700">Hi I'm</p>
+                      <p className="text-neutral-100">Ayush</p>
+                    </motion.div>
+
+                    <div className="flex items-center justify-center gap-3">
+                      <motion.button
+                        layoutId="waveformButton"
+                        initial={{ opacity: 0, filter: "blur(12px)" }}
+                        animate={{ opacity: 1, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, filter: "blur(12px)" }}
+                        transition={{ duration: 0.35, delay: 0.25 }}
+                        onClick={() => setView("waveform")}
+                        className="flex cursor-pointer items-center justify-center rounded-full bg-orange-400 p-1"
+                      >
+                        <motion.div layoutId="waveformIcon">
+                          <Waveforms className="text-white" />
+                        </motion.div>
+                      </motion.button>
+
+                      <motion.button
+                        layoutId="actionButton"
+                        onClick={() => setView("menu")}
+                        className="flex cursor-pointer items-center justify-center rounded-full bg-cyan-400 p-1"
+                      >
+                        <motion.div layoutId="actionIcon">
+                          <Menu className="text-white" />
+                        </motion.div>
+                      </motion.button>
+                    </div>
+                  </motion.div>
+                );
+
+              case "menu":
+                return (
+                  <motion.div
+                    layoutId="container"
+                    key="menu"
+                    className="flex items-center justify-between gap-4 rounded-full bg-neutral-950 p-2 px-4 shadow-lg"
+                  >
+                    <motion.div
+                      initial={{ opacity: 0, filter: "blur(8px)", x: 10 }}
+                      animate={{ opacity: 1, filter: "blur(0px)", x: 0 }}
+                      exit={{ opacity: 0, filter: "blur(8px)", x: 10 }}
+                      transition={{ duration: 0.3 }}
+                      className="flex items-center gap-1"
+                    >
+                      <HoverIcon
+                        onClick={() => setView("open")}
+                        label="Back"
+                        Icon={ArrowLeft}
+                      />
+                      <HoverIcon
+                        href="www.everywhereayush.in"
+                        label="Portfolio"
+                        Icon={FileText}
+                      />
+                      <HoverIcon
+                        href="x.com/everywhereayush"
+                        label="Twitter"
+                        Icon={X}
+                      />
+                      <HoverIcon
+                        href="www.linkedin.com/in/everywhereayush"
+                        label="LinkedIn"
+                        Icon={Linkedin}
+                      />
+                    </motion.div>
+                  </motion.div>
+                );
+              case "waveform":
+                return (
+                  <motion.div
+                    layoutId="container"
+                    key="waveform"
+                    className="flex w-64 flex-col gap-4 rounded-3xl bg-neutral-950 p-5 shadow-xl"
+                  >
+                    <div className="flex w-full items-center justify-between">
+                      <motion.div
+                        layoutId="avatar"
+                        className="flex items-center justify-center rounded-full bg-neutral-50 p-1"
+                      >
+                        <UserIcon className="size-6 text-neutral-400" />
+                      </motion.div>
+
+                      <motion.button
+                        layoutId="waveformButton"
+                        onClick={() => setView("open")}
+                        className="flex cursor-pointer items-center justify-center rounded-full bg-neutral-700 p-1"
+                      >
+                        <motion.div layoutId="waveformIcon">
+                          <X className="text-white" />
+                        </motion.div>
+                      </motion.button>
+                    </div>
+
+                    <motion.p
+                      initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+                      transition={{ duration: 0.35, delay: 0.1 }}
+                      className="text-sm text-neutral-300"
+                    >
+                      Hi I'm Ayush, A Design Engineer and a founder, based in
+                      India. I have a passion for creating intuitive and
+                      delightful user experiences. I have a background in
+                      product design and engineering, and I love to explore the
+                      intersection of design and technology.
+                    </motion.p>
+                  </motion.div>
+                );
+
+              default:
+                return null;
+            }
+          })()}
         </AnimatePresence>
       </div>
     </div>
