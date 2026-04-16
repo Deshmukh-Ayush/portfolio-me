@@ -28,7 +28,7 @@ const MainComp = () => {
     {
       id: 3,
       stacked: { rotate: -8, x: 0, y: 0 },
-      fanned: { rotate: 0, x: 0, y: 0 }, // Dead Center
+      fanned: { rotate: 30, x: 160, y: 40 }, // Far right
     },
     {
       id: 4,
@@ -38,7 +38,50 @@ const MainComp = () => {
     {
       id: 5,
       stacked: { rotate: 0, x: 0, y: 0 },
-      fanned: { rotate: 30, x: 160, y: 40 }, // Far Right
+      fanned: { rotate: 0, x: 0, y: 0 }, // Far Right
+    },
+  ];
+
+  const cardDetails = [
+    {
+      id: 1,
+      src: "/cloff-ui-ss.png",
+      title: "Motion Designer",
+      name: "Harry Kane",
+      description:
+        "Balancing product vision, design systems, and engineering craft to create digital experiences that feel polished and intuitive.",
+    },
+    {
+      id: 2,
+      src: "/rick-rubin.jpg",
+      title: "Creative Director",
+      name: "Mina Patel",
+      description:
+        "Designing visual systems and motion language that bring storytelling, brand confidence, and delightful detail to digital products.",
+    },
+    {
+      id: 3,
+      src: "/pencil.png",
+      title: "Product Strategist",
+      name: "Noah Kim",
+      description:
+        "Translating user research and business goals into interaction patterns, content flow, and launch-ready product roadmaps.",
+    },
+    {
+      id: 4,
+      src: "/og-image.png",
+      title: "UX Lead",
+      name: "Sofia Reyes",
+      description:
+        "Refining interfaces with accessibility-first thinking, fast feedback loops, and pixel-perfect execution across every screen.",
+    },
+    {
+      id: 5,
+      src: "/me.png",
+      title: "Design Engineer & CEO",
+      name: "Ayush Deshmukh",
+      description:
+        "Building elegant interaction systems that feel responsive, effortless, and polished from the first hover to the final tap.",
     },
   ];
 
@@ -72,41 +115,47 @@ const MainComp = () => {
           className="absolute origin-bottom rounded-[20px]"
           style={{ zIndex: index * 10 }}
         >
-          <Card />
+          <Card
+            src={cardDetails[index].src}
+            title={cardDetails[index].title}
+            name={cardDetails[index].name}
+            description={cardDetails[index].description}
+          />
         </motion.div>
       ))}
     </motion.div>
   );
 };
 
-const Card = () => {
+const Card = ({
+  src,
+  title,
+  name,
+  description,
+}: {
+  src: string;
+  title: string;
+  name: string;
+  description: string;
+}) => {
   return (
     <div className="relative flex h-60 w-40 items-center justify-center rounded-[20px] border border-neutral-300 bg-neutral-100 p-1">
       <LinkOpener />
       <div className="h-full w-full overflow-hidden rounded-2xl border border-neutral-300 bg-white p-1">
         <div className="relative h-20 w-full overflow-hidden rounded-xl ring-1 ring-neutral-200/50 ring-inset">
-          <Image
-            src="/me.png"
-            alt="Ayush Deshmukh"
-            fill
-            className="object-cover"
-          />
+          <Image src={src} alt={name} fill className="object-cover" />
           <div className="absolute inset-0 rounded-xl ring-1 ring-black/5 ring-inset" />
         </div>
 
         <div className="p-2">
           <span className="inline-block rounded-full bg-neutral-900 px-2 py-0.5 text-[6px] font-medium tracking-wider text-white uppercase">
-            Founder & CEO
+            {title}
           </span>
 
-          <h2 className="mt-1.5 text-xs font-bold text-neutral-800">
-            Ayush Deshmukh
-          </h2>
+          <h2 className="mt-1.5 text-xs font-bold text-neutral-800">{name}</h2>
 
           <p className="mt-1 text-[8px] leading-3 text-neutral-500">
-            I'm a very cool founder and CEO. I'm 20 right now and I'm absolutely
-            crushing it. I have a lot of experience in the industry and I'm
-            always looking for new opportunities to grow and learn.
+            {description}
           </p>
         </div>
       </div>
@@ -142,7 +191,7 @@ const LinkOpener = () => {
       >
         <div
           ref={measureRef}
-          className="w-max px-2 text-[10px] font-medium whitespace-nowrap text-neutral-800"
+          className="w-max px-2 text-[10px] font-semibold whitespace-nowrap text-neutral-800"
         >
           Connect
         </div>
