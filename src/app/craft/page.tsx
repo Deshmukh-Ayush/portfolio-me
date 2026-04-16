@@ -4,6 +4,7 @@ import Container from "@/components/container";
 import { BlocksInteractionShowcase } from "@/components/craft/showcase/blocks-illustration";
 import { CalendarWidgetShowcase } from "@/components/craft/showcase/calendar-widget-showcase";
 import { ExpandablePillShowcase } from "@/components/craft/showcase/expandable-pill";
+import { FanCardsShowcase } from "@/components/craft/showcase/fanCards-showcase";
 import { HoldToConfirmShowcase } from "@/components/craft/showcase/holdtoconfirm-showcase";
 import { HumanVerificationShowcase } from "@/components/craft/showcase/human-verification-showcase";
 import { MiniToolbarShowcase } from "@/components/craft/showcase/mini-toolbar";
@@ -34,6 +35,8 @@ export default function CraftPage() {
         <HoldToConfirmShowcase />
         {/* 7th */}
         <ExpandablePillShowcase />
+        {/* 8th */}
+        <FanCardsShowcase />
       </Container>
     </div>
   );
