@@ -48,7 +48,7 @@ const MainComp = () => {
   const cardDetails = [
     {
       id: 1,
-      src: "/cloff-ui-ss.png",
+      src: "/ai-card-1.png",
       title: "Design Engineer",
       name: "Priyanshu Bhaduri",
       description:
@@ -56,7 +56,7 @@ const MainComp = () => {
     },
     {
       id: 2,
-      src: "/rick-rubin.jpg",
+      src: "/ai-card-2.png",
       title: "Creative Director",
       name: "Vedant Ghodki",
       description:
@@ -64,7 +64,7 @@ const MainComp = () => {
     },
     {
       id: 3,
-      src: "/pencil.png",
+      src: "/ai-card-3.png",
       title: "Product Strategist",
       name: "Tanish Karvekar",
       description:
@@ -72,7 +72,7 @@ const MainComp = () => {
     },
     {
       id: 4,
-      src: "/og-image.png",
+      src: "/ai-card-4.png",
       title: "UX Lead",
       name: "Pranav Chaturvedi",
       description:
@@ -80,7 +80,7 @@ const MainComp = () => {
     },
     {
       id: 5,
-      src: "/me.png",
+      src: "/ai-card-5.png",
       title: "Design Engineer",
       name: "Ayush Deshmukh",
       description:
