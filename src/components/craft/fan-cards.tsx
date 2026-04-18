@@ -172,16 +172,16 @@ const Card = ({
     <div
       className={`relative flex h-60 w-40 items-center justify-center rounded-[20px] border p-1 ${
         isHighlight
-          ? "border-neutral-700 bg-neutral-500"
-          : "border-neutral-300 bg-neutral-100"
+          ? "border-neutral-700 bg-neutral-500 dark:border-neutral-300 dark:bg-neutral-100"
+          : "border-neutral-300 bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800"
       }`}
     >
       <LinkOpener isHighlight={isHighlight} isHovered={isHovered} />
       <div
         className={`h-full w-full overflow-hidden rounded-2xl border p-1 ${
           isHighlight
-            ? "border-neutral-700 bg-neutral-700"
-            : "border-neutral-300 bg-white"
+            ? "border-neutral-700 bg-neutral-700 dark:border-neutral-300 dark:bg-white"
+            : "border-neutral-300 bg-white dark:border-neutral-700 dark:bg-neutral-900"
         }`}
       >
         <div className="relative h-20 w-full overflow-hidden rounded-xl ring-1 ring-neutral-200/50 ring-inset">
@@ -193,8 +193,8 @@ const Card = ({
           <span
             className={`inline-block rounded-full px-2 py-0.5 text-[6px] font-medium tracking-wider uppercase ${
               isHighlight
-                ? "bg-neutral-50 text-neutral-900"
-                : "bg-neutral-900 text-white"
+                ? "bg-neutral-50 text-neutral-900 dark:bg-neutral-900 dark:text-white"
+                : "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
             }`}
           >
             {title}
@@ -202,7 +202,9 @@ const Card = ({
 
           <h2
             className={`mt-1.5 text-xs font-bold ${
-              isHighlight ? "text-neutral-50" : "text-neutral-800"
+              isHighlight
+                ? "text-neutral-50 dark:text-neutral-800"
+                : "text-neutral-800 dark:text-neutral-100"
             }`}
           >
             {name}
@@ -210,7 +212,9 @@ const Card = ({
 
           <p
             className={`mt-1 text-[8px] leading-3 ${
-              isHighlight ? "text-neutral-400" : "text-neutral-500"
+              isHighlight
+                ? "text-neutral-400 dark:text-neutral-500"
+                : "text-neutral-500 dark:text-neutral-400"
             }`}
           >
             {description}
@@ -236,15 +240,15 @@ const LinkOpener = ({
       animate={isHovered ? "animate" : "initial"}
       className={`absolute top-2 left-2 z-50 flex w-fit cursor-pointer items-center rounded-full border p-1 backdrop-blur-sm ${
         isHighlight
-          ? "border-neutral-400 bg-neutral-300/80"
-          : "border-neutral-300 bg-white/80"
+          ? "border-neutral-400 bg-neutral-300/80 dark:border-neutral-300 dark:bg-white/80"
+          : "border-neutral-300 bg-white/80 dark:border-neutral-600 dark:bg-neutral-800/80"
       }`}
     >
       <span
         className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
           isHighlight
-            ? "bg-neutral-500 text-white"
-            : "bg-neutral-900 text-white"
+            ? "bg-neutral-500 text-white dark:bg-neutral-900 dark:text-white"
+            : "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
         }`}
       >
         <Arrow />
@@ -266,7 +270,9 @@ const LinkOpener = ({
         <div
           ref={measureRef}
           className={`w-max px-2 text-[10px] font-semibold whitespace-nowrap ${
-            isHighlight ? "text-neutral-900" : "text-neutral-800"
+            isHighlight
+              ? "text-neutral-900 dark:text-neutral-800"
+              : "text-neutral-800 dark:text-neutral-100"
           }`}
         >
           Connect
