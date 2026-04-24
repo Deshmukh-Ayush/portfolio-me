@@ -7,14 +7,14 @@ import { Heading } from "@/components/ui/heading";
 import { MusicToggleButton } from "@/components/ui/special-effects/music";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
-const BlocksInteractionShowcase = dynamic(() => import("@/components/craft/showcase/blocks-illustration").then(mod => mod.BlocksInteractionShowcase));
-const CalendarWidgetShowcase = dynamic(() => import("@/components/craft/showcase/calendar-widget-showcase").then(mod => mod.CalendarWidgetShowcase));
-const ExpandablePillShowcase = dynamic(() => import("@/components/craft/showcase/expandable-pill").then(mod => mod.ExpandablePillShowcase));
-const FanCardsShowcase = dynamic(() => import("@/components/craft/showcase/fanCards-showcase").then(mod => mod.FanCardsShowcase));
-const HoldToConfirmShowcase = dynamic(() => import("@/components/craft/showcase/holdtoconfirm-showcase").then(mod => mod.HoldToConfirmShowcase));
-const HumanVerificationShowcase = dynamic(() => import("@/components/craft/showcase/human-verification-showcase").then(mod => mod.HumanVerificationShowcase));
-const MiniToolbarShowcase = dynamic(() => import("@/components/craft/showcase/mini-toolbar").then(mod => mod.MiniToolbarShowcase));
-const ToolbarShowcase = dynamic(() => import("@/components/craft/showcase/toolbar-showcase").then(mod => mod.ToolbarShowcase));
+const BlocksInteractionShowcase = dynamic(() => import("@/components/craft/showcase/blocks-illustration").then(mod => mod.BlocksInteractionShowcase), { ssr: false });
+const CalendarWidgetShowcase = dynamic(() => import("@/components/craft/showcase/calendar-widget-showcase").then(mod => mod.CalendarWidgetShowcase), { ssr: false });
+const ExpandablePillShowcase = dynamic(() => import("@/components/craft/showcase/expandable-pill").then(mod => mod.ExpandablePillShowcase), { ssr: false });
+const FanCardsShowcase = dynamic(() => import("@/components/craft/showcase/fanCards-showcase").then(mod => mod.FanCardsShowcase), { ssr: false });
+const HoldToConfirmShowcase = dynamic(() => import("@/components/craft/showcase/holdtoconfirm-showcase").then(mod => mod.HoldToConfirmShowcase), { ssr: false });
+const HumanVerificationShowcase = dynamic(() => import("@/components/craft/showcase/human-verification-showcase").then(mod => mod.HumanVerificationShowcase), { ssr: false });
+const MiniToolbarShowcase = dynamic(() => import("@/components/craft/showcase/mini-toolbar").then(mod => mod.MiniToolbarShowcase), { ssr: false });
+const ToolbarShowcase = dynamic(() => import("@/components/craft/showcase/toolbar-showcase").then(mod => mod.ToolbarShowcase), { ssr: false });
 
 export default function CraftPage() {
   return (
