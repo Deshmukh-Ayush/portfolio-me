@@ -1,18 +1,20 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Container from "@/components/container";
-import { BlocksInteractionShowcase } from "@/components/craft/showcase/blocks-illustration";
-import { CalendarWidgetShowcase } from "@/components/craft/showcase/calendar-widget-showcase";
-import { ExpandablePillShowcase } from "@/components/craft/showcase/expandable-pill";
-import { FanCardsShowcase } from "@/components/craft/showcase/fanCards-showcase";
-import { HoldToConfirmShowcase } from "@/components/craft/showcase/holdtoconfirm-showcase";
-import { HumanVerificationShowcase } from "@/components/craft/showcase/human-verification-showcase";
-import { MiniToolbarShowcase } from "@/components/craft/showcase/mini-toolbar";
-import { ToolbarShowcase } from "@/components/craft/showcase/toolbar-showcase";
 import { BackBtn } from "@/components/ui/back-btn";
 import { Heading } from "@/components/ui/heading";
 import { MusicToggleButton } from "@/components/ui/special-effects/music";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+
+const BlocksInteractionShowcase = dynamic(() => import("@/components/craft/showcase/blocks-illustration").then(mod => mod.BlocksInteractionShowcase));
+const CalendarWidgetShowcase = dynamic(() => import("@/components/craft/showcase/calendar-widget-showcase").then(mod => mod.CalendarWidgetShowcase));
+const ExpandablePillShowcase = dynamic(() => import("@/components/craft/showcase/expandable-pill").then(mod => mod.ExpandablePillShowcase));
+const FanCardsShowcase = dynamic(() => import("@/components/craft/showcase/fanCards-showcase").then(mod => mod.FanCardsShowcase));
+const HoldToConfirmShowcase = dynamic(() => import("@/components/craft/showcase/holdtoconfirm-showcase").then(mod => mod.HoldToConfirmShowcase));
+const HumanVerificationShowcase = dynamic(() => import("@/components/craft/showcase/human-verification-showcase").then(mod => mod.HumanVerificationShowcase));
+const MiniToolbarShowcase = dynamic(() => import("@/components/craft/showcase/mini-toolbar").then(mod => mod.MiniToolbarShowcase));
+const ToolbarShowcase = dynamic(() => import("@/components/craft/showcase/toolbar-showcase").then(mod => mod.ToolbarShowcase));
 
 export default function CraftPage() {
   return (
