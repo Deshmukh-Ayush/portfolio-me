@@ -1,9 +1,7 @@
 "use client";
 
-import React from "react";
-import ThemeToggle from "@/components/ui/theme-toggle";
+import React, { useState } from "react";
 import { motion, cubicBezier, AnimatePresence } from "motion/react";
-import { useState } from "react";
 import { X, ArrowLeft, FileText, Linkedin } from "lucide-react";
 import Link from "next/link";
 
@@ -67,19 +65,20 @@ function HoverIcon({
   );
 }
 
+const iconVariants = {
+  initial: { rotate: 0 },
+  hover: {
+    rotate: 1080,
+    transition: {
+      duration: 0.5,
+      ease: cubicBezier(0.895, 0.03, 0.685, 0.22),
+    },
+  },
+};
+
 export const ExpandablePill = () => {
   const [view, setView] = useState<ViewState>("closed");
 
-  const iconVariants = {
-    initial: { rotate: 0 },
-    hover: {
-      rotate: 1080,
-      transition: {
-        duration: 0.5,
-        ease: cubicBezier(0.895, 0.03, 0.685, 0.22),
-      },
-    },
-  };
   return (
     <AnimatePresence mode="popLayout">
       {(() => {
@@ -89,7 +88,7 @@ export const ExpandablePill = () => {
               <motion.div
                 layoutId="container"
                 key="closed"
-                className="flex cursor-pointer items-center justify-between gap-0.5 rounded-full bg-neutral-950 p-1"
+                className="flex cursor-pointer items-center justify-between gap-0.5 overflow-hidden rounded-full bg-neutral-950 p-1"
               >
                 <motion.div
                   layoutId="avatar"
@@ -117,7 +116,7 @@ export const ExpandablePill = () => {
               <motion.div
                 layoutId="container"
                 key="open"
-                className="flex items-center justify-between gap-0.5 rounded-full bg-neutral-950 p-2"
+                className="flex items-center justify-between gap-0.5 overflow-hidden rounded-full bg-neutral-950 p-2"
               >
                 <motion.div
                   layoutId="avatar"
@@ -171,7 +170,7 @@ export const ExpandablePill = () => {
               <motion.div
                 layoutId="container"
                 key="menu"
-                className="flex items-center justify-between gap-4 rounded-full bg-neutral-950 p-2 px-4 shadow-lg"
+                className="flex items-center justify-between gap-4 overflow-hidden rounded-full bg-neutral-950 p-2 px-4 shadow-lg"
               >
                 <motion.div
                   initial={{ opacity: 0, filter: "blur(8px)", x: 10 }}
@@ -208,7 +207,7 @@ export const ExpandablePill = () => {
               <motion.div
                 layoutId="container"
                 key="waveform"
-                className="flex w-64 flex-col gap-4 rounded-3xl bg-neutral-950 p-5 shadow-xl"
+                className="flex w-64 flex-col gap-4 overflow-hidden rounded-3xl bg-neutral-950 p-5 shadow-xl"
               >
                 <div className="flex w-full items-center justify-between">
                   <motion.div
