@@ -1,5 +1,6 @@
 import Container from "@/components/container";
 import Enlarger from "@/components/img-enlarger";
+import LongEnlarger from "@/components/long-img-enlarger";
 import { Heading } from "@/components/ui/heading";
 import { Para } from "@/components/ui/para";
 import { Separator } from "@/components/ui/separator";
@@ -69,7 +70,7 @@ export default function Page() {
                 Landing Page Idea
               </Heading>
               <div className="py-10">
-                <Enlarger
+                <LongEnlarger
                   isLongImage={true}
                   aspectRatio="16 / 9"
                   className="w-full"
@@ -81,8 +82,8 @@ export default function Page() {
                     alt="Project preview"
                     draggable={false}
                   />
-                </Enlarger>
-                <Enlarger
+                </LongEnlarger>
+                <LongEnlarger
                   isLongImage={true}
                   aspectRatio="16 / 9"
                   className="mt-8 w-full"
@@ -94,10 +95,10 @@ export default function Page() {
                     alt="Project preview"
                     draggable={false}
                   />
-                </Enlarger>
+                </LongEnlarger>
                 <Para>Pricing Page</Para>
 
-                <Enlarger
+                <LongEnlarger
                   isLongImage={true}
                   aspectRatio="16 / 9"
                   className="mt-8 w-full"
@@ -109,10 +110,10 @@ export default function Page() {
                     alt="Project preview"
                     draggable={false}
                   />
-                </Enlarger>
+                </LongEnlarger>
                 <Para>Contact Page</Para>
 
-                <Enlarger
+                <LongEnlarger
                   isLongImage={true}
                   aspectRatio="16 / 9"
                   className="mt-8 w-full"
@@ -123,9 +124,38 @@ export default function Page() {
                     src="/ui/projects_page.svg"
                     alt="Project preview"
                     draggable={false}
-                    className=""
                   />
-                </Enlarger>
+                </LongEnlarger>
+                <Para>Projects Page</Para>
+
+                <LongEnlarger
+                  isLongImage={true}
+                  aspectRatio="16 / 9"
+                  className="mt-8 w-full"
+                  popupClassName="w-[1000px] max-w-[92vw]"
+                  dismissible={{ threshold: 80, velocity: 400 }}
+                >
+                  <img
+                    src="/ui/AI_Consumption.svg"
+                    alt="Project preview"
+                    draggable={false}
+                  />
+                </LongEnlarger>
+                <Para>AI Consumption Page</Para>
+
+                <LongEnlarger
+                  isLongImage={true}
+                  aspectRatio="16 / 9"
+                  className="mt-8 w-full"
+                  popupClassName="w-[1000px] max-w-[92vw]"
+                  dismissible={{ threshold: 80, velocity: 400 }}
+                >
+                  <img
+                    src="/ui/Settings_Page.svg"
+                    alt="Project preview"
+                    draggable={false}
+                  />
+                </LongEnlarger>
                 <Para>Projects Page</Para>
               </div>
             </div>

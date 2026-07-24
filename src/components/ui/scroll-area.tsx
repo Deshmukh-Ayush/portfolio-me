@@ -44,7 +44,7 @@ const ScrollArea = forwardRef<
       orientation = "vertical",
       ...props
     },
-    ref
+    ref,
   ) => {
     const isTouch = useTouchPrimary();
 
@@ -66,7 +66,7 @@ const ScrollArea = forwardRef<
                 orientation === "vertical" && "overflow-y-auto",
                 orientation === "horizontal" && "overflow-x-auto",
                 orientation === "both" && "overflow-auto",
-                viewportClassName
+                viewportClassName,
               )}
               tabIndex={0}
             >
@@ -90,14 +90,18 @@ const ScrollArea = forwardRef<
                 {children}
               </ScrollAreaPrimitive.Content>
             </ScrollAreaPrimitive.Viewport>
-            {orientation !== "horizontal" && <ScrollBar orientation="vertical" />}
-            {orientation !== "vertical" && <ScrollBar orientation="horizontal" />}
+            {orientation !== "horizontal" && (
+              <ScrollBar orientation="vertical" />
+            )}
+            {orientation !== "vertical" && (
+              <ScrollBar orientation="horizontal" />
+            )}
             {orientation === "both" && <ScrollAreaPrimitive.Corner />}
           </ScrollAreaPrimitive.Root>
         )}
       </ScrollAreaContext.Provider>
     );
-  }
+  },
 );
 
 ScrollArea.displayName = "ScrollArea";
@@ -129,13 +133,13 @@ const ScrollBar = forwardRef<
         // Show immediately; on hide, wait out the 150ms thumb shrink before
         // fading so the thumb visibly narrows back first instead of the fade
         // masking it.
-        "opacity-0 transition-opacity duration-120 ease-out delay-160",
-        "data-[hovering]:duration-160 data-[scrolling]:duration-160",
-        "data-[hovering]:opacity-100 data-[scrolling]:opacity-100",
-        "data-[hovering]:delay-0 data-[scrolling]:delay-0",
+        "opacity-0 transition-opacity delay-160 duration-120 ease-out",
+        "data-hovering:duration-160 data-scrolling:duration-160",
+        "data-hovering:opacity-100 data-scrolling:opacity-100",
+        "data-hovering:delay-0ata-[scrolling]:delay-0",
         orientation === "vertical" && "top-0 right-0 h-full w-2.5",
         orientation === "horizontal" && "bottom-0 left-0 h-2.5 w-full flex-col",
-        className
+        className,
       )}
       {...props}
     >
@@ -145,14 +149,14 @@ const ScrollBar = forwardRef<
           // Fixed surface-relative overlay ramp (8 → 12 → 16%) — same tint
           // direction as the menu hover/active tokens, one notch stronger.
           "relative bg-[rgb(var(--overlay)/0.08)] transition-[background-color,width,height] duration-160 ease-in-out",
-          "group-hover/scrollbar:bg-[rgb(var(--overlay)/0.12)] active:!bg-[rgb(var(--overlay)/0.16)]",
+          "group-hover/scrollbar:bg-[rgb(var(--overlay)/0.12)] active:bg-[rgb(var(--overlay)/0.16)]!",
           shape.bg,
           // -translate nudges the thumb 2px off the container edge; the track
           // (and its 10px hit target) stays flush so edge-throws still land.
           orientation === "vertical" &&
-            "mx-auto my-1 w-1 -translate-x-0.5 h-[var(--scroll-area-thumb-height)] group-hover/scrollbar:w-1.5",
+            "mx-auto my-1 h-(--scroll-area-thumb-height) w-1 -translate-x-0.5 group-hover/scrollbar:w-1.5",
           orientation === "horizontal" &&
-            "my-auto mx-1 h-1 -translate-y-0.5 w-[var(--scroll-area-thumb-width)] group-hover/scrollbar:h-1.5"
+            "mx-1 my-auto h-1 w-(--scroll-area-thumb-width) -translate-y-0.5 group-hover/scrollbar:h-1.5",
         )}
       />
     </ScrollAreaPrimitive.Scrollbar>

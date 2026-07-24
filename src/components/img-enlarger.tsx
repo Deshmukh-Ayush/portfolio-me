@@ -3,7 +3,12 @@
 import React from "react";
 import { Cambio } from "cambio";
 import clsx from "clsx";
-import { cn } from "@/lib/utils";
+import { twMerge } from "tailwind-merge";
+
+// If you already have shadcn's `cn` in lib/utils.ts, delete this and import that instead.
+function cn(...inputs: Parameters<typeof clsx>) {
+  return twMerge(clsx(...inputs));
+}
 
 type EnlargerProps = {
   children: React.ReactNode;
@@ -13,7 +18,6 @@ type EnlargerProps = {
   backdropClassName?: string;
   aspectRatio?: string;
   dismissible?: boolean | { threshold?: number; velocity?: number };
-  isLongImage?: boolean; // <-- Added this prop
 };
 
 export default function Enlarger({
@@ -24,9 +28,10 @@ export default function Enlarger({
   backdropClassName,
   aspectRatio,
   dismissible = true,
-  isLongImage = false, // <-- Default to false
 }: EnlargerProps) {
   if (process.env.NODE_ENV !== "production" && !aspectRatio) {
+    // Trigger and Popup morphing between different shapes is what causes the
+    // "image lags behind the container" glitch during open/close.
     console.warn(
       '[Enlarger] no `aspectRatio` passed — keep it consistent across trigger and popup or the shared-element transition will distort mid-animation. e.g. aspectRatio="4 / 3"',
     );
@@ -34,28 +39,19 @@ export default function Enlarger({
 
   const sharedStyle = aspectRatio ? { aspectRatio } : undefined;
 
-  // Trigger: Always fill the container. If it's a long image, align to the top.
-  const triggerMediaReset = cn(
-    "[&_img]:pointer-events-none [&_img]:select-none [&_img]:w-full [&_img]:h-full [&_img]:object-cover",
-    isLongImage && "[&_img]:object-top",
-  );
-
-  // Popup: If it's a long image, let the height be auto so it can scroll.
-  // Otherwise, behave normally (object-cover).
-  const popupMediaReset = cn(
-    "[&_img]:pointer-events-none [&_img]:select-none [&_img]:w-full",
-    isLongImage
-      ? "[&_img]:h-auto [&_img]:object-top"
-      : "[&_img]:h-full [&_img]:object-cover",
-  );
+  // Neutralizes native <img> drag + pointer capture so Cambio's own drag
+  // handler on Popup actually receives the gesture. See Cambio's own
+  // examples — they set pointerEvents: "none" on the image for this exact reason.
+  const mediaReset =
+    "[&_img]:pointer-events-none [&_img]:select-none [&_img]:h-full [&_img]:w-full [&_img]:object-cover";
 
   return (
     <div className={className}>
       <Cambio.Root dismissible={dismissible}>
         <Cambio.Trigger
           className={cn(
-            "relative w-full cursor-zoom-in overflow-hidden rounded-xl outline -outline-offset-1 outline-black/10 dark:outline-white/10",
-            triggerMediaReset,
+            "relative w-full cursor-zoom-in overflow-hidden rounded-xl",
+            mediaReset,
             triggerClassName,
           )}
           style={sharedStyle}
@@ -73,12 +69,8 @@ export default function Enlarger({
 
           <Cambio.Popup
             className={cn(
-              "relative w-[92vw] max-w-6xl rounded-2xl",
-              // Swap overflow-hidden for scroll when it's a long image
-              isLongImage
-                ? "custom-scrollbar max-h-[90vh] overflow-y-auto"
-                : "overflow-hidden",
-              popupMediaReset,
+              "relative w-[92vw] max-w-6xl overflow-hidden rounded-2xl",
+              mediaReset,
               popupClassName,
             )}
             style={sharedStyle}
