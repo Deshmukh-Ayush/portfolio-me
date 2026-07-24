@@ -28,3 +28,7 @@
     transform: translateX(100%);
   }
 }
+
+.root {
+  isolation: isolate;
+}

@@ -3,6 +3,7 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import ScreenGate from "@/components/screen-gate";
+import { DialRoot } from "dialkit";
 
 const openSans = Open_Sans({
   weight: ["400"],
@@ -56,7 +57,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <PostHogProvider>{children}</PostHogProvider>
+          <PostHogProvider>
+            <div className="root">
+              {children}
+              <DialRoot />
+            </div>
+          </PostHogProvider>
         </ThemeProvider>
         {/* </ScreenGate> */}
       </body>

@@ -75,6 +75,12 @@ export const Grid = () => {
             p="AI B2B SaaS for luxury brands."
             target="_blank"
           />
+          <GridItem
+            link="Figma UI"
+            href="/ui"
+            p="I know a bit of figma too"
+            target="_blank"
+          />
         </div>
       </motion.div>
 
