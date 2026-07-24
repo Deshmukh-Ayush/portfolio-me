@@ -1,5 +1,4 @@
 import Container from "@/components/container";
-import Enlarger from "@/components/img-enlarger";
 import LongEnlarger from "@/components/long-img-enlarger";
 import { Heading } from "@/components/ui/heading";
 import { Para } from "@/components/ui/para";

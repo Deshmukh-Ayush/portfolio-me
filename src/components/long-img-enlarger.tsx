@@ -104,7 +104,7 @@ export default function LongEnlarger({
             <motion.div
               layoutId={`enlarger-image-${uniqueId}`}
               className={cn(
-                "relative z-10 w-[92vw] max-w-6xl cursor-zoom-out overflow-hidden rounded-2xl bg-black shadow-2xl",
+                "relative z-10 w-[92vw] max-w-6xl cursor-zoom-out overflow-hidden rounded-2xl",
                 popupMediaReset,
                 popupClassName,
               )}
