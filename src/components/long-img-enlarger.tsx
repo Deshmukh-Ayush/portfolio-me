@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { Cambio } from "cambio";
+import React, { useState, useId, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -12,7 +12,6 @@ type EnlargerProps = {
   popupClassName?: string;
   backdropClassName?: string;
   aspectRatio?: string;
-  dismissible?: boolean | { threshold?: number; velocity?: number };
   isLongImage?: boolean;
 };
 
@@ -23,22 +22,27 @@ export default function LongEnlarger({
   popupClassName,
   backdropClassName,
   aspectRatio,
-  dismissible = true,
   isLongImage = false,
 }: EnlargerProps) {
-  if (process.env.NODE_ENV !== "production" && !aspectRatio) {
-    console.warn(
-      '[Enlarger] no `aspectRatio` passed — keep it consistent across trigger and popup or the shared-element transition will distort mid-animation. e.g. aspectRatio="4 / 3"',
-    );
-  }
+  const [isOpen, setIsOpen] = useState(false);
+  const uniqueId = useId(); // Ensures multiple instances don't share the same layoutId
+
+  // Lock body scroll when the enlarger is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
 
   const triggerStyle = aspectRatio ? { aspectRatio } : undefined;
 
-  // Every branch here resolves to a concrete, deterministic box — never
-  // "auto sized by content" — so Framer's FLIP has a stable target to
-  // measure on every frame, open or close.
   const popupStyle = isLongImage
-    ? { height: "85vh" } // fixed, not max-height — content scrolls inside this, doesn't grow it
+    ? { height: "85vh" }
     : aspectRatio
       ? { aspectRatio }
       : undefined;
@@ -55,49 +59,72 @@ export default function LongEnlarger({
       : "[&_img]:h-full [&_img]:object-cover",
   );
 
+  // Keyboard accessibility for closing
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    if (isOpen) window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
   return (
     <div className={className}>
-      <Cambio.Root dismissible={dismissible}>
-        <Cambio.Trigger
-          className={cn(
-            "relative w-full cursor-zoom-in overflow-hidden rounded-xl outline -outline-offset-1 outline-black/10 dark:outline-white/10",
-            triggerMediaReset,
-            triggerClassName,
-          )}
-          style={triggerStyle}
-        >
-          {children}
-        </Cambio.Trigger>
+      {/* 1. Trigger (Thumbnail View) */}
+      <motion.div
+        layoutId={`enlarger-image-${uniqueId}`}
+        className={cn(
+          "relative w-full cursor-zoom-in overflow-hidden rounded-xl outline -outline-offset-1 outline-black/10 dark:outline-white/10",
+          triggerMediaReset,
+          triggerClassName,
+        )}
+        style={triggerStyle}
+        onClick={() => setIsOpen(true)}
+      >
+        {children}
+      </motion.div>
 
-        <Cambio.Portal>
-          <Cambio.Backdrop
-            className={cn(
-              "fixed inset-0 bg-black/60 backdrop-blur-sm",
-              backdropClassName,
-            )}
-          />
+      {/* 2. Popup (Enlarged View) */}
+      <AnimatePresence>
+        {isOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            {/* Backdrop Fade */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className={cn(
+                "absolute inset-0 cursor-zoom-out bg-black/60 backdrop-blur-sm",
+                backdropClassName,
+              )}
+              onClick={() => setIsOpen(false)}
+            />
 
-          <Cambio.Popup
-            className={cn(
-              "relative w-[92vw] max-w-6xl overflow-hidden rounded-2xl",
-              popupMediaReset,
-              popupClassName,
-            )}
-            style={popupStyle}
-          >
-            {isLongImage ? (
-              <ScrollArea
-                className="h-full w-full"
-                viewportClassName="scroll-fade"
-              >
-                {children}
-              </ScrollArea>
-            ) : (
-              children
-            )}
-          </Cambio.Popup>
-        </Cambio.Portal>
-      </Cambio.Root>
+            {/* Shared Layout Expansion */}
+            <motion.div
+              layoutId={`enlarger-image-${uniqueId}`}
+              className={cn(
+                "relative z-10 w-[92vw] max-w-6xl cursor-zoom-out overflow-hidden rounded-2xl bg-black shadow-2xl",
+                popupMediaReset,
+                popupClassName,
+              )}
+              style={popupStyle}
+              onClick={() => setIsOpen(false)}
+            >
+              {isLongImage ? (
+                <ScrollArea
+                  className="h-full w-full"
+                  viewportClassName="scroll-fade"
+                >
+                  {children}
+                </ScrollArea>
+              ) : (
+                children
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -23,46 +23,43 @@ export default function Page() {
           <Heading className="text-sm md:text-xl">UI</Heading>
           <div className="py-10">
             <div>
-              <Enlarger
+              <LongEnlarger
                 aspectRatio="16 / 9"
                 className="w-full"
                 popupClassName="w-[1000px] max-w-[400vw]"
-                dismissible={{ threshold: 80, velocity: 400 }}
               >
                 <img
                   src="/ui/Waitlist_page.png"
                   alt="Project preview"
                   draggable={true}
                 />
-              </Enlarger>
+              </LongEnlarger>
               <Para>Scrunity Initial Concept</Para>
             </div>
 
             <div className="flex gap-3 py-10">
-              <Enlarger
+              <LongEnlarger
                 aspectRatio="4 / 3"
                 className="w-[50%]"
                 popupClassName="w-[1000px] max-w-[400vw]"
-                dismissible={{ threshold: 80, velocity: 400 }}
               >
                 <img
                   src="/ui/Scrunity-crossover.svg"
                   alt="Project preview"
                   draggable={true}
                 />
-              </Enlarger>
-              <Enlarger
+              </LongEnlarger>
+              <LongEnlarger
                 aspectRatio="4 / 3"
                 className="w-[50%]"
                 popupClassName="w-[1000px] max-w-[400vw]"
-                dismissible={{ threshold: 80, velocity: 400 }}
               >
                 <img
                   src="/ui/drive-tile.svg"
                   alt="Project preview"
                   draggable={true}
                 />
-              </Enlarger>
+              </LongEnlarger>
             </div>
             <Separator />
             <div className="py-10">
@@ -75,7 +72,7 @@ export default function Page() {
                   aspectRatio="16 / 9"
                   className="w-full"
                   popupClassName="w-[1000px] max-w-[92vw]"
-                  dismissible={{ threshold: 80, velocity: 400 }}
+                  // dismissible={{ threshold: 80, velocity: 400 }}
                 >
                   <img
                     src="/ui/Landing_page.svg"
@@ -88,7 +85,7 @@ export default function Page() {
                   aspectRatio="16 / 9"
                   className="mt-8 w-full"
                   popupClassName="w-[1000px] max-w-[92vw]"
-                  dismissible={{ threshold: 80, velocity: 400 }}
+                  // dismissible={{ threshold: 80, velocity: 400 }}
                 >
                   <img
                     src="/ui/pricing_section.svg"
@@ -103,7 +100,7 @@ export default function Page() {
                   aspectRatio="16 / 9"
                   className="mt-8 w-full"
                   popupClassName="w-[1000px] max-w-[92vw]"
-                  dismissible={{ threshold: 80, velocity: 400 }}
+                  // dismissible={{ threshold: 80, velocity: 400 }}
                 >
                   <img
                     src="/ui/contact_section.svg"
@@ -118,7 +115,7 @@ export default function Page() {
                   aspectRatio="16 / 9"
                   className="mt-8 w-full"
                   popupClassName="w-[1000px] max-w-[92vw]"
-                  dismissible={{ threshold: 80, velocity: 400 }}
+                  // dismissible={{ threshold: 80, velocity: 400 }}
                 >
                   <img
                     src="/ui/projects_page.svg"
@@ -133,7 +130,7 @@ export default function Page() {
                   aspectRatio="16 / 9"
                   className="mt-8 w-full"
                   popupClassName="w-[1000px] max-w-[92vw]"
-                  dismissible={{ threshold: 80, velocity: 400 }}
+                  // dismissible={{ threshold: 80, velocity: 400 }}
                 >
                   <img
                     src="/ui/AI_Consumption.svg"
@@ -148,7 +145,7 @@ export default function Page() {
                   aspectRatio="16 / 9"
                   className="mt-8 w-full"
                   popupClassName="w-[1000px] max-w-[92vw]"
-                  dismissible={{ threshold: 80, velocity: 400 }}
+                  // dismissible={{ threshold: 80, velocity: 400 }}
                 >
                   <img
                     src="/ui/Settings_Page.svg"
