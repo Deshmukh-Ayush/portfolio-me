@@ -1,20 +1,32 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Container from "@/components/container";
 import { BackBtn } from "@/components/ui/back-btn";
 import { Heading } from "@/components/ui/heading";
 import { MusicToggleButton } from "@/components/ui/special-effects/music";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
-const BlocksInteractionShowcase = dynamic(() => import("@/components/craft/showcase/blocks-illustration").then(mod => mod.BlocksInteractionShowcase), { ssr: false });
-const CalendarWidgetShowcase = dynamic(() => import("@/components/craft/showcase/calendar-widget-showcase").then(mod => mod.CalendarWidgetShowcase), { ssr: false });
-const ExpandablePillShowcase = dynamic(() => import("@/components/craft/showcase/expandable-pill").then(mod => mod.ExpandablePillShowcase), { ssr: false });
-const FanCardsShowcase = dynamic(() => import("@/components/craft/showcase/fanCards-showcase").then(mod => mod.FanCardsShowcase), { ssr: false });
-const HoldToConfirmShowcase = dynamic(() => import("@/components/craft/showcase/holdtoconfirm-showcase").then(mod => mod.HoldToConfirmShowcase), { ssr: false });
-const HumanVerificationShowcase = dynamic(() => import("@/components/craft/showcase/human-verification-showcase").then(mod => mod.HumanVerificationShowcase), { ssr: false });
-const MiniToolbarShowcase = dynamic(() => import("@/components/craft/showcase/mini-toolbar").then(mod => mod.MiniToolbarShowcase), { ssr: false });
-const ToolbarShowcase = dynamic(() => import("@/components/craft/showcase/toolbar-showcase").then(mod => mod.ToolbarShowcase), { ssr: false });
+import { BlocksInteractionShowcase } from "@/components/craft/showcase/blocks-illustration";
+import { CalendarWidgetShowcase } from "@/components/craft/showcase/calendar-widget-showcase";
+import { ExpandablePillShowcase } from "@/components/craft/showcase/expandable-pill";
+import { FanCardsShowcase } from "@/components/craft/showcase/fanCards-showcase";
+import { HoldToConfirmShowcase } from "@/components/craft/showcase/holdtoconfirm-showcase";
+import { HumanVerificationShowcase } from "@/components/craft/showcase/human-verification-showcase";
+import { MiniToolbarShowcase } from "@/components/craft/showcase/mini-toolbar";
+import { ToolbarShowcase } from "@/components/craft/showcase/toolbar-showcase";
+import { SpotifyPillsShowcase } from "@/components/craft/showcase/spotify-pills-showcase";
+
+const SHOWCASES = [
+  SpotifyPillsShowcase,
+  MiniToolbarShowcase,
+  BlocksInteractionShowcase,
+  CalendarWidgetShowcase,
+  ToolbarShowcase,
+  HumanVerificationShowcase,
+  HoldToConfirmShowcase,
+  ExpandablePillShowcase,
+  FanCardsShowcase,
+] as const;
 
 export default function CraftPage() {
   return (
@@ -22,23 +34,13 @@ export default function CraftPage() {
       <MusicToggleButton className="fixed right-4 bottom-2 hidden md:block" />
       <ThemeToggle className="fixed right-18 bottom-2 hidden cursor-pointer md:block" />
       <BackBtn href="/" />
+
       <Container>
         <Heading className="text-sm md:text-xl">Craft</Heading>
-        <MiniToolbarShowcase />
-        {/* 2nd */}
-        <BlocksInteractionShowcase />
-        {/* 3rd */}
-        <CalendarWidgetShowcase />
-        {/* 4th */}
-        <ToolbarShowcase />
-        {/* 5th */}
-        <HumanVerificationShowcase />
-        {/* 6th */}
-        <HoldToConfirmShowcase />
-        {/* 7th */}
-        <ExpandablePillShowcase />
-        {/* 8th */}
-        <FanCardsShowcase />
+
+        {SHOWCASES.map((Showcase, index) => (
+          <Showcase key={index} />
+        ))}
       </Container>
     </div>
   );
