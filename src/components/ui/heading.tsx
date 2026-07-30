@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion, Variants } from "motion/react";
 
 const containerVariants: Variants = {
@@ -31,12 +31,18 @@ export const Heading = ({
   children: React.ReactNode;
   className?: string;
 }) => {
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
   const words = typeof children === "string" ? children.split(" ") : [children];
 
   return (
     <motion.div
+      key={hasMounted ? "animate" : "static"}
       variants={containerVariants}
-      initial="hidden"
+      initial={hasMounted ? "hidden" : false}
       animate="visible"
       className={cn(
         "md:text-md text-sm text-neutral-700 text-shadow-sm dark:text-neutral-100",

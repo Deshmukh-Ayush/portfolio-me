@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Underline01 } from "./special-effects/hover-underline";
 import { motion, Variants } from "motion/react";
 
@@ -25,10 +25,16 @@ const itemVariants: Variants = {
 };
 
 export const Grid = () => {
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
   return (
     <motion.div
+      key={hasMounted ? "animate" : "static"}
       variants={containerVariants}
-      initial="hidden"
+      initial={hasMounted ? "hidden" : false}
       animate="visible"
       className="grid w-full grid-cols-3 py-14 text-neutral-400"
     >

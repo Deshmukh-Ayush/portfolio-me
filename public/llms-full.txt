@@ -1,0 +1,172 @@
+# Ayush Deshmukh — Design Engineer
+
+> Design Engineer crafting polished interfaces, micro-interactions, and digital experiences. Co-Founder & CTO of Cloff Studio. Building Scrunity AI.
+
+Ayush Deshmukh is a Design Engineer focused on creating aesthetically pleasing digital experiences. He builds handcrafted UI components with attention to micro-interactions, motion design, and visual polish. He works with React, Next.js, TypeScript, Framer Motion, and Figma.
+
+## Pages
+
+- [Home](https://everywhereayush.in): Portfolio homepage with bio, work experience, and social links
+- [Craft](https://everywhereayush.in/craft): Handcrafted UI components — Spotify-style filter pills, mini toolbars, blocks interaction, calendar widgets, expandable pills, hold-to-confirm buttons, human verification, and fan cards
+- [UI Design](https://everywhereayush.in/ui): Figma design concepts — bento grids, waitlist pages, landing pages, pricing sections, contact pages, project showcases, settings pages
+- [Writing](https://everywhereayush.in/writing): Technical blog posts on design engineering and frontend development
+- [Playground](https://everywhereayush.in/playground): Experimental UI components and prototypes
+
+## Projects & Work
+
+- [Scrunity AI](https://scrunity.com): AI Canvas to brainstorm and clarify ideas. Currently building.
+- [Cloff Studio](https://www.cloffstudio.com): Co-Founder and CTO. Building creative tools and solutions.
+- [Satverse AI](https://satverse.in/): AI B2B SaaS for luxury brands. Developed the complete frontend architecture.
+
+## Blog Post: The Rise of Design Engineering
+Published: March 9, 2026
+
+In this blog we'll discover what design engineering is and why it is suddenly becoming so popular. We'll also explore the benefits of design engineering and how it can help teams create better products.
+
+Everyone cares about their product so much and day by day attempts to improve it and thus we've got two types of people in a company:
+1. Who cares about how things look.
+2. Who cares about how things work.
+
+And clearly we've got a GAP and there is a space for improvement.
+
+### GAP
+
+When working in a company, there are multiple teams working on different aspects of a product. Primarily divided into 3 teams: Design Team, Frontend Team, and Backend Team.
+
+The people in the design team design apps and they primarily focus on the UI/UX and figma related stuff. The people in frontend team are more concerned about how to replicate the exact design given by the design team. And also they have this constant thing in mind that we also need to look over for the API's and stuff because this is how any app on the internet functions.
+
+And this is where the problem lies. Both people communicate in different languages and contexts. Often times people in frontend cannot understand the intent behind the UI Design and thus cannot convey the message which design teams intended. Same goes for the designers they cannot understand the technical constraints and limitations of frontend development. Plus adding animations and interactions on top of it feels overwhelming for the frontend teams.
+
+And this is where Design Engineering comes in. Design Engineering is the new discipline that fills the gap between design and development teams.
+
+### What do they do?
+
+We do 2 things — We manage/create design systems and as well as code and critique them. Our job is to make product look as good as possible by fixing every micro-detail and adding life to it by adding interactions to make it fulfilling.
+
+### How do we differ?
+
+In a company there are two teams one of designers and other of frontend devs, when designers give UI to frontend devs they are primarily concerned about how to replicate the exact design. But the frontend devs lack the "taste" the design engineer has to make the decisions themselves. They lack that opinionated mindset and push to make things as good as possible. Like full stack developers whose skills are broadly spread out, in the similar fashion design engineers also have that broad skillset but we got the depth in design, we got that second layer which most people don't see that we make sure to get the tiniest interactions feel right.
+
+### Why do we need them?
+
+1. **Slop** — Nowadays frontend devs and designers are vibe coding and designing a lot and they rely on AI a lot more than you can even fathom. Poorly done scroll driven animations, gradients everywhere without thinking, bad typography, bad styling, bad layouts are pure examples of Slop. We as design engineers make sure this thing never happens. Our job is to make the product differentiate to make a good product also look special to people.
+
+2. **Taste** — Notice how both buttons can have three states but one skips transitions and feels abrupt while the second one morphs the layout and text smoothly. That's taste. The thing you need to take away is how you can make a tiny interaction into something that people can remember. For references some examples are Linear, Resend, Neon, Stripe etc.
+
+3. **Speed** — Design engineers can build polished SVG hovering interactions in under 10 minutes that look good, feel good, are responsive and capture nice feedback from the user. Generally to do this type of interaction devs take hours sitting and cracking the exact details.
+
+### What's taste?
+
+Taste is actually very simple to understand. Rick Rubin is a musician who is not the best selling artist but people like Jay Z, Beastie Boys, Adele go to him for his opinion before releasing songs. The same way design engineers are — people come to us to get that opinion because we have that opinionated taste that makes a great product feel special.
+
+Ways to develop taste organically:
+1. Follow multiple design engineers on X who regularly share their work — Manu Paaji, Emil Kowalski, Jakub, Nitish Khagwal etc.
+2. Start observing the tiniest details on well designed/engineered websites like Resend, Linear, Vercel etc.
+3. Create accounts on Pinterest, Dribbble, Behance, Substack and start looking at people's work before you start yours.
+
+### Verdict
+
+Design Engineering is growing rapidly. We as design engineers exist because we got that special taste which comes from a lot of practice and learning.
+
+## Blog Post: Everything You Think You Know About next/image Is Wrong!
+Published: November 13, 2025
+
+Everyone uses next/image, but very few actually understand what happens behind the scenes. And this lack of understanding often leads to confusion, myths, and even performance issues. In this blog, I break down exactly how next/image works under the hood — without the boring documentation tone.
+
+### Core Architecture
+
+The core architecture of next/image is primarily made up of three components: React Component, Image API, and Image Optimizer.
+
+### React Component
+
+next/image is nothing but a react component and its primary function is to generate correct HTML image output based on the properties provided and also it constructs multiple URLs which point to different sized versions of the same image. It generates optimized image URLs for different resolutions and populates them in the srcset and src attributes of the final HTML img element, so browsers can load the right image size for each device automatically.
+
+The generated URL looks like: `/_next/image?url=/images/example.jpg&w=640&q=75` — accepting two parameters w and q which stand for width and quality respectively. There is no height attribute.
+
+### Image API
+
+The next image API serves as an image proxy — NextJS stands between your app and the original image source. It fetches, optimizes, caches and serves the image on your behalf. It performs: accepting an image URL, width and quality; validating parameters; determining cache control policies; processing the image; and serving it in a format supported by the user's browser.
+
+### Image Optimizer
+
+Next Image utilizes different image optimization libraries such as Sharp or Squoosh, depending on certain conditions. Sharp is fast and efficient, using Native libvips. Squoosh is fully node-based, slower but doesn't require additional libraries. Sharp is recommended for production use, whereas Squoosh is used by default in local environments.
+
+### Key Insights
+
+**next/image does not crop.** A common misconception is that next/image can crop images. The width and height are primarily for the img tag to prevent layout shifts. The Image API does not accept the height parameter because it currently isn't possible to change the original image's aspect ratio.
+
+**Displayed Image width ≠ global image width.** The width property passed to next/image doesn't represent the actual width to which the image will be resized. Passing width={500} results in the image being resized to 640px. Next.js resizes images to the closest size from an array of deviceSizes and imageSizes defined in next.config.js. Using the default configuration can negatively impact performance.
+
+**Image optimization can be used without the component.** You can use the Image API without using next/image — for example, rendering optimized images inside a canvas.
+
+**Use import for local images.** When you load images using an absolute path from the public folder, Next.js follows the cache headers of the server, which defaults to a 30-day cache instead of public,max-age=31536000,immutable. Using import avoids this issue.
+
+### Conclusions
+
+Image optimization (next/image) provides significant advantages and simplifies image management, though it could benefit from additional features like advanced cropping and precise resizing. For most use cases, the developer experience and efficiency of Next Image will be more than enough.
+
+## Blog Post: Micro-Interactions
+Published: November 8, 2025
+
+"Microinteractions are the small, purposeful moments in digital products that guide, reassure, and engage users. They're the little details that help you feel in control, make things clearer, and turn actions into feedback—like a button lighting up when clicked or a progress bar growing as a task completes." — Dan Saffer.
+
+Hi! I am Ayush. I am writing this very first blog of mine on Micro Interactions. This blog is focused on beginners, however you can anyways read it.
+
+### Why micro-interactions matter?
+
+Micro-interactions are not just made to make things look more good and interactive. They are made to grab the user's attention and make them feel they are in complete control of whatever task they are doing. Example: when you complete a payment a green tick appears that assures you the payment has been successful and before the tick you see a loading animation which makes you feel that some process is happening behind the scene.
+
+Micro-interactions are:
+- Signal System status (meaning you know something is happening).
+- Give Feedback (You know if your action succeeded or failed).
+- Help users feel they are in control.
+- Make the experience memorable.
+
+### The Anatomy of micro-interactions
+
+Micro-interactions have four simple parts:
+1. **Trigger** - What starts it? (click, hover, timer, swipe, gesture).
+2. **Rules** - What happens and when? (conditional logics).
+3. **Feedback** - How does the system respond (Visual, haptic, audio).
+4. **Loops & Modes** - Does it repeat or change over time?
+
+### How to create them on web
+
+You can create these animations on web with CSS and JavaScript. motion.dev is one of the most popular animation libraries for React-based frameworks.
+
+CSS animations use declarative styles (@keyframes, transition) to handle visual changes like fades, slides, and simple transforms. They are ideal for lightweight, performance-friendly effects tied to state changes. Over time it becomes hard to manage large numbers of animations using just CSS.
+
+JavaScript-based animations provide programmatic control over animation sequences — useful for triggering, updating, and chaining complex effects, responding to user input, and using physics or highly interactive motion logic. Popular JavaScript animation frameworks include motion.dev, GSAP, and anime.js.
+
+Modern technologies like Rive, Jitter, and Lottiefiles have been developed to make interactions easier to create without writing code. These tools save a lot of time with good developer experience and easy integration.
+
+Micro-Interactions play a major role in converting a visitor to your daily user. It multiplies the user experience — web design is simply incomplete without interactions. But you don't have to overdo it.
+
+"Knowing when to add an animation, how, and why, can drastically change how your product is perceived and felt."
+
+## Craft Components
+
+Handcrafted UI components showcased on the portfolio:
+- Spotify-style Dynamic Filter Pills
+- Mini Toolbar with responsive interactions
+- Blocks Interaction Showcase
+- Calendar Widget
+- Toolbar with multiple tools
+- Human Verification interaction
+- Hold to Confirm button
+- Expandable Pill component
+- Fan Cards with spread animation
+
+## UI Design Work
+
+Figma design concepts organized by category:
+- UI Concepts: Bento grid layouts, Scrunity waitlist page, Scrunity crossover concept, Drive tile design
+- Landing Page Ideas: Full landing pages, pricing sections, contact sections, project showcases, AI consumption pages, settings pages
+
+## Contact & Profiles
+
+- X / Twitter: https://x.com/everywhereayush
+- LinkedIn: https://www.linkedin.com/in/ayush-deshmukh-144a86277/
+- Instagram: https://instagram.com/everywhereayush
+- Email: ayushdeshmukh301@gmail.com
+- GitHub: https://github.com/Deshmukh-Ayush

@@ -11,30 +11,27 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Ayush Deshmukh",
-  description: "Ayush's Portfolio",
-  metadataBase: new URL("https://www.everywhereayush.vercel.app"),
+  title: {
+    template: "%s — Ayush Deshmukh",
+    default: "Ayush Deshmukh — Design Engineer",
+  },
+  description:
+    "Design Engineer crafting polished interfaces, micro-interactions, and digital experiences. Co-Founder & CTO of Cloff Studio. Building Scrunity AI.",
+  metadataBase: new URL("https://everywhereayush.in"),
   openGraph: {
-    title: "Ayush Deshmukh",
-    description: "Ayush's Portfolio",
-    url: "https://www.everywhereayush.vercel.app",
+    title: "Ayush Deshmukh — Design Engineer",
+    description:
+      "Design Engineer crafting polished interfaces, micro-interactions, and digital experiences.",
+    url: "https://everywhereayush.in",
     siteName: "Ayush Deshmukh",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Ayush Deshmukh",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ayush Deshmukh",
-    description: "Ayush's Portfolio",
-    images: ["/og-image.png"],
+    title: "Ayush Deshmukh — Design Engineer",
+    description:
+      "Design Engineer crafting polished interfaces, micro-interactions, and digital experiences.",
   },
 };
 

@@ -1,0 +1,52 @@
+# Ayush Deshmukh — Design Engineer
+
+> Design Engineer crafting polished interfaces, micro-interactions, and digital experiences. Co-Founder & CTO of Cloff Studio. Building Scrunity AI.
+
+Ayush Deshmukh is a Design Engineer focused on creating aesthetically pleasing digital experiences. He builds handcrafted UI components with attention to micro-interactions, motion design, and visual polish. He works with React, Next.js, TypeScript, Framer Motion, and Figma.
+
+## Pages
+
+- [Home](https://everywhereayush.in): Portfolio homepage with bio, work experience, and social links
+- [Craft](https://everywhereayush.in/craft): Handcrafted UI components — Spotify-style filter pills, mini toolbars, blocks interaction, calendar widgets, expandable pills, hold-to-confirm buttons, human verification, and fan cards
+- [UI Design](https://everywhereayush.in/ui): Figma design concepts — bento grids, waitlist pages, landing pages, pricing sections, contact pages, project showcases, settings pages
+- [Writing](https://everywhereayush.in/writing): Technical blog posts on design engineering and frontend development
+- [Playground](https://everywhereayush.in/playground): Experimental UI components and prototypes
+
+## Blog Posts
+
+- [The Rise of Design Engineering](https://everywhereayush.in/writing/the-rise-of-design-engineering): What design engineering is, why it's becoming popular, and how it helps teams create better products. Published March 9, 2026.
+- [Everything You Think You Know About next/image Is Wrong!](https://everywhereayush.in/writing/everything-you-know-about-next-image-is-wrong): A deep dive into how Next.js Image component actually works — debunking common misconceptions about optimization and performance. Published November 13, 2025.
+- [Micro-Interactions](https://everywhereayush.in/writing/micro-interactions): Exploring the art of micro-interactions in UI design — subtle animations that make products feel alive. Published November 8, 2025.
+
+## Projects & Work
+
+- [Scrunity AI](https://scrunity.com): AI Canvas to brainstorm and clarify ideas. Currently building.
+- [Cloff Studio](https://www.cloffstudio.com): Co-Founder and CTO. Building creative tools and solutions.
+- [Satverse AI](https://satverse.in/): AI B2B SaaS for luxury brands. Developed the complete frontend architecture.
+
+## Craft Components
+
+Handcrafted UI components showcased on the portfolio:
+- Spotify-style Dynamic Filter Pills
+- Mini Toolbar with responsive interactions
+- Blocks Interaction Showcase
+- Calendar Widget
+- Toolbar with multiple tools
+- Human Verification interaction
+- Hold to Confirm button
+- Expandable Pill component
+- Fan Cards with spread animation
+
+## UI Design Work
+
+Figma design concepts organized by category:
+- UI Concepts: Bento grid layouts, Scrunity waitlist page, Scrunity crossover concept, Drive tile design
+- Landing Page Ideas: Full landing pages, pricing sections, contact sections, project showcases, AI consumption pages, settings pages
+
+## Contact & Profiles
+
+- X / Twitter: https://x.com/everywhereayush
+- LinkedIn: https://www.linkedin.com/in/ayush-deshmukh-144a86277/
+- Instagram: https://instagram.com/everywhereayush
+- Email: ayushdeshmukh301@gmail.com
+- GitHub: https://github.com/Deshmukh-Ayush
