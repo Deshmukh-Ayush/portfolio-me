@@ -7,23 +7,25 @@ import { motion } from "motion/react";
 
 export const WeekdaysFilter = () => {
   const [isRepeating, setIsRepeating] = useState(false);
+
   const [markedDays, setMarkedDays] = useState<string[]>([]);
+  const [notRepeatingDays, setNotRepeatingDays] = useState<string[]>([]);
 
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+  const getRandomDays = () => {
+    const count = Math.floor(Math.random() * 4) + 1;
+
+    return [...days].sort(() => Math.random() - 0.5).slice(0, count);
+  };
 
   const toggleRepeating = (checked: boolean) => {
     setIsRepeating(checked);
 
     if (checked) {
-      const count = Math.floor(Math.random() * 4) + 1;
-
-      const randomDays = [...days]
-        .sort(() => Math.random() - 0.5)
-        .slice(0, count);
-
-      setMarkedDays(randomDays);
+      setMarkedDays(getRandomDays());
     } else {
-      setMarkedDays([]);
+      setNotRepeatingDays(getRandomDays());
     }
   };
 
@@ -58,7 +60,11 @@ export const WeekdaysFilter = () => {
           </button>
         </div>
 
-        <WeekFIlter isRepeating={isRepeating} markedDays={markedDays} />
+        <WeekFIlter
+          isRepeating={isRepeating}
+          markedDays={markedDays}
+          notRepeatingDays={notRepeatingDays}
+        />
       </div>
     </div>
   );
@@ -67,15 +73,22 @@ export const WeekdaysFilter = () => {
 interface WeekFilterProps {
   isRepeating: boolean;
   markedDays: string[];
+  notRepeatingDays: string[];
 }
 
-const WeekFIlter = ({ isRepeating, markedDays }: WeekFilterProps) => {
+const WeekFIlter = ({
+  isRepeating,
+  markedDays,
+  notRepeatingDays,
+}: WeekFilterProps) => {
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   return (
     <div className="flex w-full items-center justify-center gap-1 rounded-md">
       {days.map((day) => {
-        const isMarked = markedDays.includes(day);
+        const isMarked = isRepeating
+          ? markedDays.includes(day)
+          : notRepeatingDays.includes(day);
 
         return (
           <div
@@ -85,7 +98,7 @@ const WeekFIlter = ({ isRepeating, markedDays }: WeekFilterProps) => {
             <motion.div
               className="flex w-full flex-col"
               animate={{
-                y: isRepeating && isMarked ? -32 : 0,
+                y: isMarked ? -32 : 0,
               }}
               transition={{
                 duration: 0.3,
