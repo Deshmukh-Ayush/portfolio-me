@@ -4,12 +4,16 @@ import React, { useState } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
 import { motion } from "motion/react";
+import { useSound } from "@web-kits/audio/react";
+import { minimal } from "../../../.web-kits";
 
 export const WeekdaysFilter = () => {
   const [isRepeating, setIsRepeating] = useState(false);
-
   const [markedDays, setMarkedDays] = useState<string[]>([]);
   const [notRepeatingDays, setNotRepeatingDays] = useState<string[]>([]);
+
+  const playToggleOn = useSound(minimal.toggleOn);
+  const playToggleOff = useSound(minimal.toggleOff);
 
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
@@ -23,8 +27,10 @@ export const WeekdaysFilter = () => {
     setIsRepeating(checked);
 
     if (checked) {
+      playToggleOn();
       setMarkedDays(getRandomDays());
     } else {
+      playToggleOff();
       setNotRepeatingDays(getRandomDays());
     }
   };
@@ -35,17 +41,20 @@ export const WeekdaysFilter = () => {
         <div className="flex min-h-10 items-center justify-between">
           <span className="text-sm">Is Repeating</span>
 
-          <label className="relative inline-flex cursor-pointer items-center select-none">
+          <label className="relative inline-flex cursor-pointer items-center select-none before:absolute before:top-1/2 before:left-1/2 before:h-11 before:w-11 before:-translate-x-1/2 before:-translate-y-1/2 before:content-['']">
             <input
               type="checkbox"
+              aria-label="Repeat"
               className="peer sr-only"
               checked={isRepeating}
               onChange={(e) => toggleRepeating(e.target.checked)}
             />
 
-            <div className="shadow-border-sm h-4.5 w-8 rounded-full bg-neutral-200/80 transition duration-300 ease-in-out peer-checked:bg-green-500 peer-focus-visible:ring-1 peer-focus-visible:ring-neutral-400/50 peer-focus-visible:ring-offset-1 peer-disabled:cursor-not-allowed peer-disabled:opacity-40 dark:bg-neutral-800 dark:peer-checked:bg-green-500 dark:peer-focus-visible:ring-neutral-500/50 dark:peer-focus-visible:ring-offset-neutral-950" />
+            {/* Track */}
+            <div className="shadow-border-sm h-4.5 w-8 rounded-full bg-neutral-200/80 transition-colors duration-300 ease-in-out peer-checked:bg-green-500 peer-focus-visible:ring-1 peer-focus-visible:ring-neutral-400/50 peer-focus-visible:ring-offset-1 peer-disabled:cursor-not-allowed peer-disabled:opacity-40 dark:bg-neutral-800 dark:peer-checked:bg-green-500 dark:peer-focus-visible:ring-neutral-500/50 dark:peer-focus-visible:ring-offset-neutral-950" />
 
-            <div className="shadow-border-sm absolute top-[3px] left-[3px] h-3 w-3 rounded-full bg-white transition-all duration-150 ease-in-out peer-checked:translate-x-3.5 dark:bg-neutral-100" />
+            {/* Thumb */}
+            <div className="shadow-border-sm absolute top-[3px] left-[3px] h-3 w-3 rounded-full bg-white transition-transform duration-150 ease-in-out peer-checked:translate-x-3.5 dark:bg-neutral-100" />
           </label>
         </div>
 

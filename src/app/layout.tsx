@@ -37,6 +37,7 @@ export const metadata: Metadata = {
 
 import { JsonLd } from "@/components/json-ld";
 import { PostHogProvider } from "./providers";
+import { UseSoundProvider } from "@/hooks/use-sound";
 
 export default function RootLayout({
   children,
@@ -56,7 +57,7 @@ export default function RootLayout({
         >
           <PostHogProvider>
             <div className="root">
-              {children}
+              <UseSoundProvider>{children}</UseSoundProvider>
               <DialRoot />
             </div>
           </PostHogProvider>
