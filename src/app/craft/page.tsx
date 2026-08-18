@@ -15,8 +15,10 @@ import { HumanVerificationShowcase } from "@/components/craft/showcase/human-ver
 import { MiniToolbarShowcase } from "@/components/craft/showcase/mini-toolbar";
 import { ToolbarShowcase } from "@/components/craft/showcase/toolbar-showcase";
 import { SpotifyPillsShowcase } from "@/components/craft/showcase/spotify-pills-showcase";
+import { WeekDaysFilterShowcase } from "@/components/craft/showcase/weekdays-filter";
 
 const SHOWCASES = [
+  WeekDaysFilterShowcase,
   SpotifyPillsShowcase,
   MiniToolbarShowcase,
   BlocksInteractionShowcase,
