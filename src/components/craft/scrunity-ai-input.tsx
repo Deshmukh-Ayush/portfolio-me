@@ -2,6 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import { Plus, ArrowUp } from "lucide-react";
+import { motion } from "motion/react";
 
 const COMMAND_OPTIONS = [
   {
@@ -70,7 +71,6 @@ export const ScrunityAiInput = () => {
     setText(command);
     setShowSlashMenu(false);
 
-    // Focus textarea again
     textareaRef.current?.focus();
   };
 
@@ -128,25 +128,41 @@ const SlashMenu = ({
 }: {
   selectCommand: (command: string) => void;
 }) => {
+  const [hovered, setHovered] = useState<number | null>(null);
+
   return (
-    <div className="absolute bottom-full left-0 mb-2 w-72 rounded-[12px] border border-[#E8E8E8] bg-white p-1.5 shadow-lg">
+    <div className="absolute bottom-full left-0 mb-2 w-72 rounded-[12px] border border-[#E8E8E8] bg-white p-1.5">
       <div className="px-2 py-1 text-[11px] font-medium text-neutral-400">
         Commands
       </div>
 
       <div className="flex flex-col gap-0.5">
-        {COMMAND_OPTIONS.map((cmd) => (
+        {COMMAND_OPTIONS.map((cmd, idx) => (
           <button
             key={cmd.key}
             type="button"
             onClick={() => selectCommand(cmd.command)}
-            className="flex flex-col rounded-md px-2.5 py-1.5 text-left transition-colors hover:bg-neutral-100"
+            onMouseEnter={() => setHovered(idx)}
+            onMouseLeave={() => setHovered(null)}
+            className="group relative flex w-full flex-col rounded-md px-2.5 py-1.5 text-left"
           >
-            <span className="text-xs font-medium text-neutral-900">
+            {hovered === idx && (
+              <motion.span
+                layoutId="slash-menu-hover"
+                className="absolute inset-0 rounded-md bg-neutral-200"
+                transition={{
+                  type: "spring",
+                  stiffness: 380,
+                  damping: 30,
+                }}
+              />
+            )}
+
+            <span className="relative z-10 text-xs font-medium text-neutral-900">
               {cmd.label}
             </span>
 
-            <span className="text-[11px] text-neutral-500">
+            <span className="relative z-10 text-[11px] text-neutral-500">
               {cmd.description}
             </span>
           </button>
@@ -161,22 +177,39 @@ const MentionMenu = ({
 }: {
   selectProject: (projectName: string) => void;
 }) => {
+  const [hovered, setHovered] = useState<number | null>(null);
+
   return (
-    <div className="absolute bottom-full left-0 mb-2 w-64 rounded-[12px] border border-[#E8E8E8] bg-white p-1.5 shadow-lg">
+    <div className="absolute bottom-full left-0 mb-2 w-64 rounded-[12px] border border-[#E8E8E8] bg-white p-1.5">
       <div className="px-2 py-1 text-[11px] font-medium text-neutral-400">
         Projects
       </div>
 
       <div className="flex flex-col gap-0.5">
-        {PROJECT_OPTIONS.map((proj) => (
+        {PROJECT_OPTIONS.map((proj, idx) => (
           <button
             key={proj.id}
             type="button"
             onClick={() => selectProject(proj.name)}
-            className="flex items-center gap-2 rounded-md px-2.5 py-1.5 text-left text-xs font-medium text-neutral-900 transition-colors hover:bg-neutral-100"
+            onMouseEnter={() => setHovered(idx)}
+            onMouseLeave={() => setHovered(null)}
+            className="group relative flex w-full items-center gap-2 rounded-md px-2.5 py-1.5 text-left text-xs font-medium text-neutral-900"
           >
-            <span>📁</span>
-            <span>{proj.name}</span>
+            {hovered === idx && (
+              <motion.span
+                layoutId="mention-menu-hover"
+                className="absolute inset-0 rounded-md bg-neutral-200"
+                transition={{
+                  type: "spring",
+                  stiffness: 380,
+                  damping: 30,
+                }}
+              />
+            )}
+
+            <span className="relative z-10">📁</span>
+
+            <span className="relative z-10">{proj.name}</span>
           </button>
         ))}
       </div>
